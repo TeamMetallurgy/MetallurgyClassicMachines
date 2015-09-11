@@ -1,0 +1,16 @@
+[
+{
+  "modid": "metallurgycm",
+  "name": "Metallurgy Classic Machines",
+  "description": "Metallurgy Classic Machines, also known as the Tier machines from Metallurgy 3",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Team Metallurgy"],
+  "credits": "Team Metallurgy",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": ["Metallurgy"]
+}
+]
