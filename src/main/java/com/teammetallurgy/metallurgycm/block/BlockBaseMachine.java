@@ -31,7 +31,7 @@ public abstract class BlockBaseMachine extends BlockContainer
         super(Material.rock);
         setHardness(2);
         setResistance(2.0F);
-        setBlockTextureName(MetallurgyCM.MOD_ID.toLowerCase(Locale.US) + ":defaultBlock");
+        setBlockTextureName(MetallurgyCM.MOD_ID.toLowerCase(Locale.US) + ":default_block");
 
     }
 
