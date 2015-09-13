@@ -37,6 +37,8 @@ public class MetallurgyCM
         ConfigHandler.setConfig(new Configuration(event.getSuggestedConfigurationFile()));
         ConfigHandler.loadConfig();
         LogHandler.setLogger(event.getModLog());
+
+        MetallurgyCMBlocks.init();
     }
 
     @EventHandler
