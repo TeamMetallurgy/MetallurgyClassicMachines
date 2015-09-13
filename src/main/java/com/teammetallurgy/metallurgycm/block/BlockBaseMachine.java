@@ -80,15 +80,16 @@ public abstract class BlockBaseMachine extends BlockContainer
         sideIcons = new IIcon[types.length];
         activeIcons = new IIcon[types.length];
 
-        String texturePath = MetallurgyCM.MOD_ID.toLowerCase(Locale.US) + baseName + "/";
+        String texturePath = MetallurgyCM.MOD_ID.toLowerCase(Locale.US) + ":" + baseName.toLowerCase(Locale.US) + "/";
 
         for (int i = 0; i < types.length; i++)
         {
-            frontIcons[i] = register.registerIcon(texturePath + types[i] + "_front");
-            bottomIcons[i] = register.registerIcon(texturePath + types[i] + "_bottom");
-            topIcons[i] = register.registerIcon(texturePath + types[i] + "_top");
-            sideIcons[i] = register.registerIcon(texturePath + types[i] + "_sideIcons");
-            activeIcons[i] = register.registerIcon(texturePath + types[i] + "_active");
+            String baseTexture = texturePath + types[i].toLowerCase(Locale.US).replace(" ", "_");
+            frontIcons[i] = register.registerIcon(baseTexture + "_front");
+            bottomIcons[i] = register.registerIcon(baseTexture + "_bottom");
+            topIcons[i] = register.registerIcon(baseTexture + "_top");
+            sideIcons[i] = register.registerIcon(baseTexture + "_side");
+            activeIcons[i] = register.registerIcon(baseTexture + "_active");
         }
     }
 

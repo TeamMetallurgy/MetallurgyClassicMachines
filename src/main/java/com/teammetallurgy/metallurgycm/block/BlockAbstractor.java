@@ -14,7 +14,7 @@ public class BlockAbstractor extends BlockBaseMachine
     {
         setBlockName(MetallurgyCM.MOD_ID.toLowerCase(Locale.US) + ".abstractor");
         setBaseName("Abstractor");
-        setBlockTypes("Prometheum", "Deep Iron", "Block Steel", "Oureclase", "Mithril", "Haderoth", "Orichalcum", "Adamantine", "Atlarus", "Tartarite");
+        setBlockTypes("Prometheum", "Deep Iron", "Black Steel", "Oureclase", "Mithril", "Haderoth", "Orichalcum", "Adamantine", "Atlarus", "Tartarite");
     }
 
     @Override
