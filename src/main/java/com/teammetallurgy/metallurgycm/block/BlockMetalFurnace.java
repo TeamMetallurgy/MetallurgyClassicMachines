@@ -30,7 +30,7 @@ public class BlockMetalFurnace extends BlockBaseMachine
     @Override
     public void registerBlockIcons(IIconRegister register)
     {
-        this.blockIcon = register.registerIcon(getTextureName());
+        blockIcon = register.registerIcon(getTextureName());
 
         if (types == null) return;
 
