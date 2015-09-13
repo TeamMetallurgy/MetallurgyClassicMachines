@@ -14,6 +14,8 @@ public class BlockMetalChest extends BlockBaseMachine
     public BlockMetalChest()
     {
         setBlockName(MetallurgyCM.MOD_ID.toLowerCase(Locale.US) + ".metal.chest");
+        setBaseName("Chest");
+        setBlockTypes("Stone", "Copper", "Bronze", "Iron", "Steel");
     }
 
     @Override
