@@ -23,4 +23,22 @@ public class BlockCrusher extends BlockBaseMachine
         return new TileEntityCrusher();
     }
 
+    @Override
+    public boolean renderAsNormalBlock()
+    {
+        return false;
+    }
+
+    @Override
+    public boolean isOpaqueCube()
+    {
+        return false;
+    }
+
+    @Override
+    public int getRenderType()
+    {
+        return -1;
+    }
+
 }

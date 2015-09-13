@@ -44,7 +44,7 @@ public class MetallurgyCM
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
-
+        proxy.init();
     }
 
     @EventHandler
