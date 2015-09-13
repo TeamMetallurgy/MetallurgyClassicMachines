@@ -8,6 +8,11 @@ import com.teammetallurgy.metallurgycm.block.BlockMetalChest;
 import com.teammetallurgy.metallurgycm.block.BlockMetalFurnace;
 import com.teammetallurgy.metallurgycm.block.BlockSmelter;
 import com.teammetallurgy.metallurgycm.item.ItemBlockBaseMachine;
+import com.teammetallurgy.metallurgycm.tileentity.TileEntityAbstractor;
+import com.teammetallurgy.metallurgycm.tileentity.TileEntityCrusher;
+import com.teammetallurgy.metallurgycm.tileentity.TileEntityMetalChest;
+import com.teammetallurgy.metallurgycm.tileentity.TileEntityMetalFurnace;
+import com.teammetallurgy.metallurgycm.tileentity.TileEntitySmelter;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -33,5 +38,10 @@ public class MetallurgyCMBlocks
         GameRegistry.registerBlock(metalFurnace, ItemBlockBaseMachine.class, "metal_furnace");
         GameRegistry.registerBlock(smelter, ItemBlockBaseMachine.class, "smelter");
 
+        GameRegistry.registerTileEntity(TileEntityAbstractor.class, MetallurgyCM.MOD_NAME + ":abstractor");
+        GameRegistry.registerTileEntity(TileEntityCrusher.class, MetallurgyCM.MOD_NAME + ":crusher");
+        GameRegistry.registerTileEntity(TileEntityMetalChest.class, MetallurgyCM.MOD_NAME + ":metal_chest");
+        GameRegistry.registerTileEntity(TileEntityMetalFurnace.class, MetallurgyCM.MOD_NAME + ":metal_furnace");
+        GameRegistry.registerTileEntity(TileEntitySmelter.class, MetallurgyCM.MOD_NAME + ":smelter");
     }
 }
