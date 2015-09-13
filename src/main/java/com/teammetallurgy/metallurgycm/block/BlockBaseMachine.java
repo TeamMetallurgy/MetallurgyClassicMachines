@@ -1,10 +1,13 @@
 package com.teammetallurgy.metallurgycm.block;
 
+import java.util.List;
 import java.util.Locale;
 
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
@@ -130,6 +133,15 @@ public abstract class BlockBaseMachine extends BlockContainer
                 return frontIcons[meta];
             default:
                 return sideIcons[meta];
+        }
+    }
+
+    @Override
+    public void getSubBlocks(Item item, CreativeTabs tab, List list)
+    {
+        for (int i = 0; i < types.length; i++)
+        {
+            list.add(new ItemStack(this, 1, i));
         }
     }
 
