@@ -24,4 +24,21 @@ public class BlockMetalChest extends BlockBaseMachine
         return new TileEntityMetalChest();
     }
 
+    @Override
+    public boolean renderAsNormalBlock()
+    {
+        return false;
+    }
+
+    @Override
+    public int getRenderType()
+    {
+        return -1;
+    }
+
+    @Override
+    public boolean isOpaqueCube()
+    {
+        return false;
+    }
 }
