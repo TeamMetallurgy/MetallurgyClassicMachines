@@ -1,18 +1,19 @@
 package com.teammetallurgy.metallurgycm.block;
 
-import net.minecraft.block.BlockContainer;
-import net.minecraft.block.material.Material;
+import java.util.Locale;
+
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
+import com.teammetallurgy.metallurgycm.MetallurgyCM;
 import com.teammetallurgy.metallurgycm.tileentity.TileEntityMetalChest;
 
-public class BlockMetalChest extends BlockContainer
+public class BlockMetalChest extends BlockBaseMachine
 {
 
     public BlockMetalChest()
     {
-        super(Material.iron);
+        setBlockName(MetallurgyCM.MOD_ID.toLowerCase(Locale.US) + ".metal.chest");
     }
 
     @Override
