@@ -193,6 +193,7 @@ public abstract class BlockBaseMachine extends BlockContainer
     }
 
     @Override
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public void getSubBlocks(Item item, CreativeTabs tab, List list)
     {
         for (int i = 0; i < types.length; i++)
