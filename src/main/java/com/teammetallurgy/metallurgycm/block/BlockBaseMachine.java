@@ -7,12 +7,19 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import com.teammetallurgy.metallurgycm.MetallurgyCM;
+import com.teammetallurgy.metallurgycm.handler.LogHandler;
+import com.teammetallurgy.metallurgycm.tileentity.TileEntityBaseMachine;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -52,6 +59,42 @@ public abstract class BlockBaseMachine extends BlockContainer
     protected void setBaseName(String blockBaseName)
     {
         baseName = blockBaseName;
+    }
+
+    @Override
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack)
+    {
+
+        TileEntity tileEntity = world.getTileEntity(x, y, z);
+
+        if (!(tileEntity instanceof TileEntityBaseMachine)) return;
+
+        ForgeDirection facingDirection = ForgeDirection.NORTH;
+
+        int facing = MathHelper.floor_double(entity.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
+
+        LogHandler.info("facing: " + facing);
+
+        switch (facing)
+        {
+            case 0:
+                facingDirection = ForgeDirection.NORTH;
+                break;
+            case 1:
+                facingDirection = ForgeDirection.EAST;
+                break;
+            case 2:
+                facingDirection = ForgeDirection.SOUTH;
+                break;
+            case 3:
+                facingDirection = ForgeDirection.WEST;
+                break;
+            default:
+                facingDirection = ForgeDirection.NORTH;
+        }
+
+        ((TileEntityBaseMachine) tileEntity).setFacing(facingDirection);
+
     }
 
     public String getUnlocalizedName(ItemStack stack)
@@ -103,14 +146,27 @@ public abstract class BlockBaseMachine extends BlockContainer
         int meta = world.getBlockMetadata(x, y, z);
         if (meta < 0 || meta >= types.length) return blockIcon;
 
+        TileEntity tileEntity = world.getTileEntity(x, y, z);
+
+        if (!(tileEntity instanceof TileEntityBaseMachine)) return blockIcon;
+
+        ForgeDirection facingDirection = ((TileEntityBaseMachine) tileEntity).getFacing();
+
+        boolean isFacingSide = false;
+
+        if (side == 2 && facingDirection == ForgeDirection.NORTH) isFacingSide = true;
+        if (side == 3 && facingDirection == ForgeDirection.SOUTH) isFacingSide = true;
+        if (side == 4 && facingDirection == ForgeDirection.WEST) isFacingSide = true;
+        if (side == 5 && facingDirection == ForgeDirection.EAST) isFacingSide = true;
+
+        if (isFacingSide) return frontIcons[meta];
+
         switch (side)
         {
             case 0:
                 return bottomIcons[meta];
             case 1:
                 return topIcons[meta];
-            case 3:
-                return frontIcons[meta];
             default:
                 return sideIcons[meta];
         }
