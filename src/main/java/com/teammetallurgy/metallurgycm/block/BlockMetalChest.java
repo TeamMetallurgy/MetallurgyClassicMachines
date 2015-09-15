@@ -16,6 +16,7 @@ public class BlockMetalChest extends BlockBaseMachine
         setBlockName(MetallurgyCM.MOD_ID.toLowerCase(Locale.US) + ".metal.chest");
         setBaseName("Chest");
         setBlockTypes("Brass", "Silver", "Gold", "Electrum", "Platinum");
+        setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.875F, 0.9375F);
     }
 
     @Override
