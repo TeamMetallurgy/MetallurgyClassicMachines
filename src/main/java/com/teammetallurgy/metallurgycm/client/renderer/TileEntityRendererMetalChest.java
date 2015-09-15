@@ -17,11 +17,11 @@ public class TileEntityRendererMetalChest extends TileEntitySpecialRenderer
 {
     private ModelChest modelChest = new ModelChest();
 
-    private ResourceLocation brassTexture = new ResourceLocation(MetallurgyCM.MOD_ID.toLowerCase(Locale.US) + ":textures/blocks/chests/brass.png");
-    private ResourceLocation silverTexture = new ResourceLocation(MetallurgyCM.MOD_ID.toLowerCase(Locale.US) + ":textures/blocks/chests/silver.png");
-    private ResourceLocation goldTexture = new ResourceLocation(MetallurgyCM.MOD_ID.toLowerCase(Locale.US) + ":textures/blocks/chests/gold.png");
-    private ResourceLocation electrumTexture = new ResourceLocation(MetallurgyCM.MOD_ID.toLowerCase(Locale.US) + ":textures/blocks/chests/electrum.png");
-    private ResourceLocation platinumTexture = new ResourceLocation(MetallurgyCM.MOD_ID.toLowerCase(Locale.US) + ":textures/blocks/chests/platinum.png");
+    private ResourceLocation brassTexture = new ResourceLocation(MetallurgyCM.MOD_ID.toLowerCase(Locale.US) + ":textures/blocks/chest/brass_model.png");
+    private ResourceLocation silverTexture = new ResourceLocation(MetallurgyCM.MOD_ID.toLowerCase(Locale.US) + ":textures/blocks/chest/silver_model.png");
+    private ResourceLocation goldTexture = new ResourceLocation(MetallurgyCM.MOD_ID.toLowerCase(Locale.US) + ":textures/blocks/chest/gold_model.png");
+    private ResourceLocation electrumTexture = new ResourceLocation(MetallurgyCM.MOD_ID.toLowerCase(Locale.US) + ":textures/blocks/chest/electrum_model.png");
+    private ResourceLocation platinumTexture = new ResourceLocation(MetallurgyCM.MOD_ID.toLowerCase(Locale.US) + ":textures/blocks/chest/platinum_model.png");
 
     public void renderTileEntityAt(TileEntityMetalChest tileEntityMetalChest, double x, double y, double z, float renderTicks)
     {
