@@ -6,6 +6,7 @@ import net.minecraft.client.model.ModelChest;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 
@@ -24,9 +25,39 @@ public class TileEntityRendererMetalChest extends TileEntitySpecialRenderer
 
     public void renderTileEntityAt(TileEntityMetalChest tileEntityMetalChest, double x, double y, double z, float renderTicks)
     {
+
+        ForgeDirection facing = tileEntityMetalChest.getFacing();
+
+        double offsetX = 0;
+        double offsetZ = 0;
+        int angle = 0;
+
+        if (facing == ForgeDirection.SOUTH)
+        {
+            offsetZ = 1;
+        }
+        else if (facing == ForgeDirection.WEST)
+        {
+            angle = 90;
+        }
+        else if (facing == ForgeDirection.NORTH)
+        {
+            angle = 180;
+            offsetX = 1;
+        }
+
+        else if (facing == ForgeDirection.EAST)
+        {
+            angle = 270;
+            offsetX = 1;
+            offsetZ = 1;
+        }
+
         GL11.glPushMatrix();
-        GL11.glTranslated(x, y + 1, z + 1);
+        GL11.glTranslated(x + offsetX, y + 1, z + offsetZ);
         GL11.glRotatef(180.0F, 1.0F, 0.0F, 0F);
+        GL11.glRotatef(angle, 0.0F, 1.0F, 0.0F);
+
         bindChestTexture(tileEntityMetalChest.getBlockMetadata());
         modelChest.renderAll();
         GL11.glPopMatrix();
