@@ -3,11 +3,13 @@ package com.teammetallurgy.metallurgycm.block;
 import java.util.Locale;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
 import com.teammetallurgy.metallurgycm.MetallurgyCM;
+import com.teammetallurgy.metallurgycm.handler.MetallurgyCMGuiHandler;
 import com.teammetallurgy.metallurgycm.tileentity.TileEntityCrusher;
 
 public class BlockCrusher extends BlockBaseMachine
@@ -23,6 +25,13 @@ public class BlockCrusher extends BlockBaseMachine
     public TileEntity createNewTileEntity(World world, int meta)
     {
         return new TileEntityCrusher();
+    }
+
+    @Override
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float xDistance, float yDistance, float zDistance)
+    {
+        player.openGui(MetallurgyCM.MOD_ID, MetallurgyCMGuiHandler.CRUSHER_ID, world, x, y, z);
+        return true;
     }
 
     @Override

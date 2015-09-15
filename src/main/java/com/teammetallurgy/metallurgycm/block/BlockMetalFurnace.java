@@ -3,6 +3,7 @@ package com.teammetallurgy.metallurgycm.block;
 import java.util.Locale;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
@@ -10,6 +11,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import com.teammetallurgy.metallurgycm.MetallurgyCM;
+import com.teammetallurgy.metallurgycm.handler.MetallurgyCMGuiHandler;
 import com.teammetallurgy.metallurgycm.tileentity.TileEntityBaseMachine;
 import com.teammetallurgy.metallurgycm.tileentity.TileEntityMetalFurnace;
 
@@ -27,6 +29,13 @@ public class BlockMetalFurnace extends BlockBaseMachine
     public TileEntity createNewTileEntity(World world, int meta)
     {
         return new TileEntityMetalFurnace();
+    }
+
+    @Override
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float xDistance, float yDistance, float zDistance)
+    {
+        player.openGui(MetallurgyCM.MOD_ID, MetallurgyCMGuiHandler.METAL_FURNACE_ID, world, x, y, z);
+        return true;
     }
 
     @Override
