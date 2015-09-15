@@ -26,18 +26,28 @@ public class GuiMetalChest extends GuiContainer
         {
             case 0:
                 texture = new ResourceLocation(MetallurgyCM.MOD_ID.toLowerCase(Locale.US) + ":textures/gui/chest/brass.png");
+                xSize = 184;
+                ySize = 202;
                 break;
             case 1:
                 texture = new ResourceLocation(MetallurgyCM.MOD_ID.toLowerCase(Locale.US) + ":textures/gui/chest/silver.png");
+                xSize = 184;
+                ySize = 238;
                 break;
             case 2:
                 texture = new ResourceLocation(MetallurgyCM.MOD_ID.toLowerCase(Locale.US) + ":textures/gui/chest/gold.png");
+                xSize = 184;
+                ySize = 256;
                 break;
             case 3:
                 texture = new ResourceLocation(MetallurgyCM.MOD_ID.toLowerCase(Locale.US) + ":textures/gui/chest/electrum.png");
+                xSize = 202;
+                ySize = 256;
                 break;
             case 4:
                 texture = new ResourceLocation(MetallurgyCM.MOD_ID.toLowerCase(Locale.US) + ":textures/gui/chest/platinum.png");
+                xSize = 238;
+                ySize = 256;
                 break;
 
             default:
