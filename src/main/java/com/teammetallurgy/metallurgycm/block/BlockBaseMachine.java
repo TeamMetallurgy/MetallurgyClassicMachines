@@ -18,7 +18,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import com.teammetallurgy.metallurgycm.MetallurgyCM;
-import com.teammetallurgy.metallurgycm.handler.LogHandler;
 import com.teammetallurgy.metallurgycm.tileentity.TileEntityBaseMachine;
 
 import cpw.mods.fml.relauncher.Side;
@@ -72,8 +71,6 @@ public abstract class BlockBaseMachine extends BlockContainer
         ForgeDirection facingDirection = ForgeDirection.NORTH;
 
         int facing = MathHelper.floor_double(entity.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
-
-        LogHandler.info("facing: " + facing);
 
         switch (facing)
         {
@@ -152,14 +149,7 @@ public abstract class BlockBaseMachine extends BlockContainer
 
         ForgeDirection facingDirection = ((TileEntityBaseMachine) tileEntity).getFacing();
 
-        boolean isFacingSide = false;
-
-        if (side == 2 && facingDirection == ForgeDirection.NORTH) isFacingSide = true;
-        if (side == 3 && facingDirection == ForgeDirection.SOUTH) isFacingSide = true;
-        if (side == 4 && facingDirection == ForgeDirection.WEST) isFacingSide = true;
-        if (side == 5 && facingDirection == ForgeDirection.EAST) isFacingSide = true;
-
-        if (isFacingSide) return frontIcons[meta];
+        if (isFront(side, facingDirection)) return frontIcons[meta];
 
         switch (side)
         {
@@ -171,6 +161,16 @@ public abstract class BlockBaseMachine extends BlockContainer
                 return sideIcons[meta];
         }
 
+    }
+
+    protected boolean isFront(int side, ForgeDirection facingDirection)
+    {
+        if (side == 2 && facingDirection == ForgeDirection.NORTH) return true;
+        if (side == 3 && facingDirection == ForgeDirection.SOUTH) return true;
+        if (side == 4 && facingDirection == ForgeDirection.WEST) return true;
+        if (side == 5 && facingDirection == ForgeDirection.EAST) return true;
+
+        return false;
     }
 
     @Override
