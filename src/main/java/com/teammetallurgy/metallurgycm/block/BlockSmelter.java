@@ -7,8 +7,10 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import com.teammetallurgy.metallurgycm.MetallurgyCM;
+import com.teammetallurgy.metallurgycm.tileentity.TileEntityBaseMachine;
 import com.teammetallurgy.metallurgycm.tileentity.TileEntitySmelter;
 
 public class BlockSmelter extends BlockBaseMachine
@@ -72,14 +74,20 @@ public class BlockSmelter extends BlockBaseMachine
 
         int storageLevel = 0;
 
+        TileEntity tileEntity = world.getTileEntity(x, y, z);
+
+        if (!(tileEntity instanceof TileEntityBaseMachine)) return blockIcon;
+
+        ForgeDirection facingDirection = ((TileEntityBaseMachine) tileEntity).getFacing();
+
+        if (isFront(side, facingDirection)) return frontIcons[meta][storageLevel];
+
         switch (side)
         {
             case 0:
                 return bottomIcons[meta];
             case 1:
                 return topIcons[meta];
-            case 3:
-                return frontIcons[meta][storageLevel];
             default:
                 return sideIcons[meta][storageLevel];
         }
