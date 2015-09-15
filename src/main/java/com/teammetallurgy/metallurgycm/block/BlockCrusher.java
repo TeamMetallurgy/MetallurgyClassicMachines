@@ -2,7 +2,9 @@ package com.teammetallurgy.metallurgycm.block;
 
 import java.util.Locale;
 
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
 import com.teammetallurgy.metallurgycm.MetallurgyCM;
@@ -39,6 +41,34 @@ public class BlockCrusher extends BlockBaseMachine
     public int getRenderType()
     {
         return -1;
+    }
+
+    @Override
+    public void registerBlockIcons(IIconRegister register)
+    {
+        blockIcon = register.registerIcon(getTextureName());
+
+        if (types == null) return;
+
+        frontIcons = new IIcon[types.length];
+
+        String texturePath = MetallurgyCM.MOD_ID.toLowerCase(Locale.US) + ":" + baseName.toLowerCase(Locale.US) + "/";
+
+        for (int i = 0; i < types.length; i++)
+        {
+            String baseTexture = texturePath + types[i].toLowerCase(Locale.US).replace(" ", "_");
+            frontIcons[i] = register.registerIcon(baseTexture + "_block");
+
+        }
+    }
+
+    @Override
+    public IIcon getIcon(int side, int meta)
+    {
+
+        if (meta < 0 || meta >= types.length) return blockIcon;
+
+        return frontIcons[meta];
     }
 
 }
