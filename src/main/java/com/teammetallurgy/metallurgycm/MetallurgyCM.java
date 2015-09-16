@@ -31,6 +31,8 @@ public class MetallurgyCM
     @SidedProxy(modId = MetallurgyCM.MOD_ID, clientSide = PROXY_PATH + "ClientProxy", serverSide = PROXY_PATH + "ServerProxy")
     public static IProxy proxy;
 
+    public static MetallurgyCMTab creativeTab;
+
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
@@ -38,7 +40,10 @@ public class MetallurgyCM
         ConfigHandler.loadConfig();
         LogHandler.setLogger(event.getModLog());
 
+        creativeTab = new MetallurgyCMTab();
+
         MetallurgyCMBlocks.init();
+
     }
 
     @EventHandler

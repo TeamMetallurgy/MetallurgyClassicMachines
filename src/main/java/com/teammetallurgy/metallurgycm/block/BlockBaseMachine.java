@@ -41,7 +41,7 @@ public abstract class BlockBaseMachine extends BlockContainer
         setHardness(2);
         setResistance(2.0F);
         setBlockTextureName(MetallurgyCM.MOD_ID.toLowerCase(Locale.US) + ":default_block");
-
+        setCreativeTab(MetallurgyCM.creativeTab);
     }
 
     @Override
