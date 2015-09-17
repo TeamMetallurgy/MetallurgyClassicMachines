@@ -108,6 +108,19 @@ public abstract class BlockBaseMachine extends BlockContainer
         return unlocalizedName;
     }
 
+    public String getUnlocalizedContainerName(int meta)
+    {
+        String unlocalizedName = "container." + MetallurgyCM.MOD_ID.toLowerCase(Locale.US);
+        unlocalizedName += "." + baseName.toLowerCase(Locale.US);
+
+        if (meta >= 0 && meta < types.length)
+        {
+            unlocalizedName += "." + types[meta].toLowerCase(Locale.US);
+        }
+
+        return unlocalizedName;
+    }
+
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister register)
