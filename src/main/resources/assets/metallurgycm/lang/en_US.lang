@@ -1,0 +1,69 @@
+itemGroup.metallurgycm=Metallurgy Classic Machines
+
+container.metallurgycm.abstractor.adamantine=Adamantine Abstractor
+container.metallurgycm.abstractor.atlarus=Atlarus Abstractor
+container.metallurgycm.abstractor.black.steel=Black Steel Abstractor
+container.metallurgycm.abstractor.deep.iron=Deep Iron Abstractor
+container.metallurgycm.abstractor.haderoth=Haderoth Abstractor
+container.metallurgycm.abstractor.mithril=Mithril Abstractor
+container.metallurgycm.abstractor.orichalcum=Orichalcum Abstractor
+container.metallurgycm.abstractor.oureclase=Oureclase Abstractor
+container.metallurgycm.abstractor.prometheum=Prometheum Abstractor
+container.metallurgycm.abstractor.tartarite=Tartarite Abstractor
+
+container.metallurgycm.crusher.bronze=Bronze Crusher
+container.metallurgycm.crusher.copper=Copper Crusher
+container.metallurgycm.crusher.iron=Iron Crusher
+container.metallurgycm.crusher.steel=Steel Crusher
+container.metallurgycm.crusher.stone=Stone Crusher
+
+container.metallurgycm.furnace.bronze=bronze Furnace
+container.metallurgycm.furnace.copper=Copper Furnace
+container.metallurgycm.furnace.iron=Iron Furnace
+container.metallurgycm.furnace.steel=Steel Furnace
+
+container.metallurgycm.smelter.ignatius=Ignatius Smelter
+container.metallurgycm.smelter.shadow.iron=Shadow Iron Smelter
+container.metallurgycm.smelter.shadow.steel=Shadow Steel Smelter
+container.metallurgycm.smelter.vyroxeres=Vyroxeres Smelter
+container.metallurgycm.smelter.inolashite=Inolashite Smelter
+container.metallurgycm.smelter.kalendrite=Kalendrite Smelter
+container.metallurgycm.smelter.vulcanite=Vulcanite Smelter
+container.metallurgycm.smelter.sanguinite=Sanguinite Smelter
+
+tile.metallurgycm.abstractor.adamantine.name=Adamantine Abstractor
+tile.metallurgycm.abstractor.atlarus.name=Atlarus Abstractor
+tile.metallurgycm.abstractor.black.steel.name=Black Steel Abstractor
+tile.metallurgycm.abstractor.deep.iron.name=Deep Iron Abstractor
+tile.metallurgycm.abstractor.haderoth.name=Haderoth Abstractor
+tile.metallurgycm.abstractor.mithril.name=Mithril Abstractor
+tile.metallurgycm.abstractor.orichalcum.name=Orichalcum Abstractor
+tile.metallurgycm.abstractor.oureclase.name=Oureclase Abstractor
+tile.metallurgycm.abstractor.prometheum.name=Prometheum Abstractor
+tile.metallurgycm.abstractor.tartarite.name=Tartarite Abstractor
+
+tile.metallurgycm.chest.brass.name=Brass Chest
+tile.metallurgycm.chest.silver.name=Silver Chest
+tile.metallurgycm.chest.gold.name=Gold Chest
+tile.metallurgycm.chest.electrum.name=Electrum Chest
+tile.metallurgycm.chest.platinum.name=Platinum Chest
+
+tile.metallurgycm.crusher.bronze.name=Bronze Crusher
+tile.metallurgycm.crusher.copper.name=Copper Crusher
+tile.metallurgycm.crusher.iron.name=Iron Crusher
+tile.metallurgycm.crusher.steel.name=Steel Crusher
+tile.metallurgycm.crusher.stone.name=Stone Crusher
+
+tile.metallurgycm.furnace.bronze.name=Bronze Furnace
+tile.metallurgycm.furnace.copper.name=Copper Furnace
+tile.metallurgycm.furnace.iron.name=Iron Furnace
+tile.metallurgycm.furnace.steel.name=Steel Furnace
+
+tile.metallurgycm.smelter.ignatius.name=Ignatius Smelter
+tile.metallurgycm.smelter.shadow.iron.name=Shadow Iron Smelter
+tile.metallurgycm.smelter.shadow.steel.name=Shadow Steel Smelter
+tile.metallurgycm.smelter.vyroxeres.name=Vyroxeres Smelter
+tile.metallurgycm.smelter.inolashite.name=Inolashite Smelter
+tile.metallurgycm.smelter.kalendrite.name=Kalendrite Smelter
+tile.metallurgycm.smelter.vulcanite.name=Vulcanite Smelter
+tile.metallurgycm.smelter.sanguinite.name=Sanguinite Smelter
