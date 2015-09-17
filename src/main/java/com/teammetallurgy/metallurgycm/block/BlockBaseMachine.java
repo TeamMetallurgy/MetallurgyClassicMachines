@@ -115,7 +115,7 @@ public abstract class BlockBaseMachine extends BlockContainer
 
         if (meta >= 0 && meta < types.length)
         {
-            unlocalizedName += "." + types[meta].toLowerCase(Locale.US);
+            unlocalizedName += "." + types[meta].toLowerCase(Locale.US).replace(" ", ".");
         }
 
         return unlocalizedName;
