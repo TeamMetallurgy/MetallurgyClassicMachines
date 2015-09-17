@@ -36,7 +36,8 @@ public class GuiAbstractor extends GuiContainer
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseZ)
     {
         String unlocalizedContainerName = ((BlockBaseMachine) tileEntity.getBlockType()).getUnlocalizedContainerName(tileEntity.getBlockMetadata());
-        this.fontRendererObj.drawString(StatCollector.translateToLocal(unlocalizedContainerName), this.xSize / 2 - this.fontRendererObj.getStringWidth(unlocalizedContainerName) / 2, 6, 0x404040);
+        String localizedName = StatCollector.translateToLocal(unlocalizedContainerName);
+        this.fontRendererObj.drawString(localizedName, this.xSize / 2 - this.fontRendererObj.getStringWidth(localizedName) / 2, 6, 0x404040);
         this.fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, this.ySize - 96 + 2, 0x404040);
     }
 
