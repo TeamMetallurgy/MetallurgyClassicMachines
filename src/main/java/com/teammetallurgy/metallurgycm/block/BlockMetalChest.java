@@ -3,7 +3,9 @@ package com.teammetallurgy.metallurgycm.block;
 import java.util.Locale;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
@@ -30,6 +32,20 @@ public class BlockMetalChest extends BlockBaseMachine
     public TileEntity createNewTileEntity(World world, int meta)
     {
         return new TileEntityMetalChest();
+    }
+
+    @Override
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack)
+    {
+        super.onBlockPlacedBy(world, x, y, z, entity, stack);
+
+        int meta = world.getBlockMetadata(x, y, z);
+        TileEntity tileEntity = world.getTileEntity(x, y, z);
+
+        if (!(tileEntity instanceof TileEntityMetalChest)) return;
+
+        ((TileEntityMetalChest) tileEntity).setInvSize(meta);
+
     }
 
     @Override
