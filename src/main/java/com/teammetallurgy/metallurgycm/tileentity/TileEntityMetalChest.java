@@ -21,6 +21,8 @@ public class TileEntityMetalChest extends TileEntityBaseMachine implements IInve
         if (meta > 0 && meta < sizes.length) size = sizes[meta];
 
         inventory = new ItemStack[size];
+
+        markDirty();
     }
 
     @Override
@@ -144,6 +146,9 @@ public class TileEntityMetalChest extends TileEntityBaseMachine implements IInve
     {
         super.readFromNBT(nbtCompound);
 
+        size = nbtCompound.getByte("InvSize");
+        inventory = new ItemStack[size];
+
         NBTTagList nbtList = nbtCompound.getTagList("Items", 10);
 
         for (int i = 0; i < nbtList.tagCount(); i++)
@@ -162,6 +167,8 @@ public class TileEntityMetalChest extends TileEntityBaseMachine implements IInve
     public void writeToNBT(NBTTagCompound nbtCompound)
     {
         super.writeToNBT(nbtCompound);
+
+        nbtCompound.setByte("InvSize", (byte) size);
 
         NBTTagList nbtList = new NBTTagList();
 
