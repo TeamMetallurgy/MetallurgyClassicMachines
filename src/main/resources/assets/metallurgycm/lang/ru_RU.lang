@@ -1,0 +1,69 @@
+itemGroup.metallurgycm=Metallurgy Classic Machines
+
+container.metallurgycm.abstractor.adamantine=Адамантиевый абстрактор
+container.metallurgycm.abstractor.atlarus=Атларисовый абстрактор
+container.metallurgycm.abstractor.black.steel=Абстрактор из чёрной стали
+container.metallurgycm.abstractor.deep.iron=Абстрактор из глубинного железа
+container.metallurgycm.abstractor.haderoth=Хадеротовый абстрактор
+container.metallurgycm.abstractor.mithril=Мифриловый абстрактор
+container.metallurgycm.abstractor.orichalcum=Орихалковый абстрактор
+container.metallurgycm.abstractor.oureclase=Аурклассовый абстрактор
+container.metallurgycm.abstractor.prometheum=Прометеевый абстрактор
+container.metallurgycm.abstractor.tartarite=Тартаритовый абстрактор
+
+container.metallurgycm.crusher.bronze=Бронзовый дробитель
+container.metallurgycm.crusher.copper=Медный дробитель
+container.metallurgycm.crusher.iron=Железный дробитель
+container.metallurgycm.crusher.steel=Стальной дробитель
+container.metallurgycm.crusher.stone=Каменный дробитель
+
+container.metallurgycm.furnace.bronze=Бронзовая печь
+container.metallurgycm.furnace.copper=Медная печь
+container.metallurgycm.furnace.iron=Железная печь
+container.metallurgycm.furnace.steel=Стальная печь
+
+container.metallurgycm.smelter.ignatius=Игнатиевая плавильня
+container.metallurgycm.smelter.shadow.iron=Плавильня из теневого железа
+container.metallurgycm.smelter.shadow.steel=Плавильня из теневой стали
+container.metallurgycm.smelter.vyroxeres=Вироксеровая плавильня
+container.metallurgycm.smelter.inolashite=Инолашитовая плавильня
+container.metallurgycm.smelter.kalendrite=Календритовая плавильня
+container.metallurgycm.smelter.vulcanite=Вулканитовая плавильня
+container.metallurgycm.smelter.sanguinite=Сангвинитовая плавильня
+
+tile.metallurgycm.abstractor.adamantine.name=Адамантиевый абстрактор
+tile.metallurgycm.abstractor.atlarus.name=Атларисовый абстрактор
+tile.metallurgycm.abstractor.black.steel.name=Абстрактор из чёрной стали
+tile.metallurgycm.abstractor.deep.iron.name=Абстрактор из глубинного железа
+tile.metallurgycm.abstractor.haderoth.name=Хадеротовый абстрактор
+tile.metallurgycm.abstractor.mithril.name=Мифриловый абстрактор
+tile.metallurgycm.abstractor.orichalcum.name=Орихалковый абстрактор
+tile.metallurgycm.abstractor.oureclase.name=Аурклассовый абстрактор
+tile.metallurgycm.abstractor.prometheum.name=Прометеевый абстрактор
+tile.metallurgycm.abstractor.tartarite.name=Тартаритовый абстрактор
+
+tile.metallurgycm.chest.brass.name=Латунный сундук
+tile.metallurgycm.chest.silver.name=Серебряный сундук
+tile.metallurgycm.chest.gold.name=Золотой сундук
+tile.metallurgycm.chest.electrum.name=Электрумовый сундук
+tile.metallurgycm.chest.platinum.name=Платиновый сундук
+
+tile.metallurgycm.crusher.bronze.name=Бронзовый дробитель
+tile.metallurgycm.crusher.copper.name=Медный дробитель
+tile.metallurgycm.crusher.iron.name=Железный дробитель
+tile.metallurgycm.crusher.steel.name=Стальной дробитель
+tile.metallurgycm.crusher.stone.name=Каменный дробитель
+
+tile.metallurgycm.furnace.bronze.name=Бронзовая печь
+tile.metallurgycm.furnace.copper.name=Медная печь
+tile.metallurgycm.furnace.iron.name=Железная печь
+tile.metallurgycm.furnace.steel.name=Стальная печь
+
+tile.metallurgycm.smelter.ignatius.name=Игнатиевая плавильня
+tile.metallurgycm.smelter.shadow.iron.name=Плавильня из теневого железа
+tile.metallurgycm.smelter.shadow.steel.name=Плавильня из теневой стали
+tile.metallurgycm.smelter.vyroxeres.name=Вироксеровая плавильня
+tile.metallurgycm.smelter.inolashite.name=Инолашитовая плавильня
+tile.metallurgycm.smelter.kalendrite.name=Календритовая плавильня
+tile.metallurgycm.smelter.vulcanite.name=Вулканитовая плавильня
+tile.metallurgycm.smelter.sanguinite.name=Сангвинитовая плавильня
