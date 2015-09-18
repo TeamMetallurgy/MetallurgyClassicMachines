@@ -15,10 +15,10 @@ public class ContainerMetalChest extends Container
     private int[] guiSizeY = { 202, 238, 256, 256, 256 };
     private int[] guiRows = { 6, 8, 9, 9, 9 };
     private int[] guiColumns = { 9, 9, 9, 10, 11 };
-    private static final int INV_OFFSET_X = 11;
-    private static final int INV_OFFSET_Y = 7;
-    private int[] playerInvOffsetX = { 11, 11, 11, 11, 20, 38 };
-    private int[] playerInvOffsetY = { 120, 155, 173, 173, 173 };
+    private static final int INV_OFFSET_X = 12;
+    private static final int INV_OFFSET_Y = 8;
+    private int[] playerInvOffsetX = { 12, 12, 12, 21, 39 };
+    private int[] playerInvOffsetY = { 120, 156, 174, 174, 174 };
 
     public ContainerMetalChest(InventoryPlayer inventoryPlayer, TileEntityMetalChest tileEntityMetalChest)
     {
@@ -51,7 +51,7 @@ public class ContainerMetalChest extends Container
         // Player hotbar
         for (x = 0; x < 9; x++)
         {
-            addSlotToContainer(new Slot(inventoryPlayer, x, playerInvOffsetX[meta] + x * 18, playerInvOffsetY[meta] + 18 * 3));
+            addSlotToContainer(new Slot(inventoryPlayer, x, playerInvOffsetX[meta] + x * 18, playerInvOffsetY[meta] + (18 * 3) + 4));
         }
     }
 
