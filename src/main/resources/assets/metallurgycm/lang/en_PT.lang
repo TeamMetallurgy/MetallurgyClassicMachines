@@ -1,0 +1,69 @@
+itemGroup.metallurgycm=Metallarrgy Ol' Thingymabobs
+
+container.metallurgycm.abstractor.adamantine=Essanca' O' Adamantine 
+container.metallurgycm.abstractor.atlarus=Essanca' O' Atlarus
+container.metallurgycm.abstractor.black.steel=Essanca' O' Black Steel
+container.metallurgycm.abstractor.deep.iron=Essanca' O' Deep Iron
+container.metallurgycm.abstractor.haderoth=Essanca' O' Haderoth
+container.metallurgycm.abstractor.mithril=Essanca' O' Mithril
+container.metallurgycm.abstractor.orichalcum=Essanca' O' Orichalcum
+container.metallurgycm.abstractor.oureclase=Essanca' O' Oureclase
+container.metallurgycm.abstractor.prometheum=Essanca' O' Prometheum
+container.metallurgycm.abstractor.tartarite=Essanca' O' Tartarite
+
+container.metallurgycm.crusher.bronze=Crusha' O' Bronze
+container.metallurgycm.crusher.copper=Crusha' O' Coppa'
+container.metallurgycm.crusher.iron=Crusha' O' Iron
+container.metallurgycm.crusher.steel=Crusha' O' Steel
+container.metallurgycm.crusher.stone=Crusha' O' Stone
+
+container.metallurgycm.furnace.bronze=Oven O' Bronze
+container.metallurgycm.furnace.copper=Oven O' Coppa'
+container.metallurgycm.furnace.iron=Oven O' Iron
+container.metallurgycm.furnace.steel=Oven O' Steel
+
+container.metallurgycm.smelter.ignatius=Magma Oven O' Ignatius
+container.metallurgycm.smelter.shadow.iron=Magma Oven O' Shadow Iron
+container.metallurgycm.smelter.shadow.steel=Magma Oven O' Shadow Steel
+container.metallurgycm.smelter.vyroxeres=Magma Oven O' Vyroxeres
+container.metallurgycm.smelter.inolashite=Magma Oven O' Inolashite
+container.metallurgycm.smelter.kalendrite=Magma Oven O' Kalendrite
+container.metallurgycm.smelter.vulcanite=Magma Oven O' Vulcanite
+container.metallurgycm.smelter.sanguinite=Magma Oven O' Sanguinite
+
+tile.metallurgycm.abstractor.adamantine.name=Essanca' O' Adamantine
+tile.metallurgycm.abstractor.atlarus.name=Essanca' O' Atlarus
+tile.metallurgycm.abstractor.black.steel.name=Essanca' O' Black Steel
+tile.metallurgycm.abstractor.deep.iron.name=Essanca' O' Deep Iron
+tile.metallurgycm.abstractor.haderoth.name=Essanca' O' Haderoth
+tile.metallurgycm.abstractor.mithril.name=Essanca' O' Mithril
+tile.metallurgycm.abstractor.orichalcum.name=Essanca' O' Orichalcum
+tile.metallurgycm.abstractor.oureclase.name=Essanca' O' Oureclase
+tile.metallurgycm.abstractor.prometheum.name=Essanca' O' Prometheum
+tile.metallurgycm.abstractor.tartarite.name=Essanca' O' Tartarite
+
+tile.metallurgycm.chest.brass.name=Coffer O' Brass
+tile.metallurgycm.chest.silver.name=Coffer O' Silver
+tile.metallurgycm.chest.gold.name=Coffer O' Gold
+tile.metallurgycm.chest.electrum.name=Coffer O' Electrum
+tile.metallurgycm.chest.platinum.name=Coffer O' Platinum
+
+tile.metallurgycm.crusher.bronze.name=Crusha' O' Bronze
+tile.metallurgycm.crusher.copper.name=Crusha' O' Coppa'
+tile.metallurgycm.crusher.iron.name=Crusha' O' Iron
+tile.metallurgycm.crusher.steel.name=Crusha' O' Steel
+tile.metallurgycm.crusher.stone.name=Crusha' O' Stone
+
+tile.metallurgycm.furnace.bronze.name=Oven O' Bronze
+tile.metallurgycm.furnace.copper.name=Oven O' Coppa'
+tile.metallurgycm.furnace.iron.name=Oven O' Iron
+tile.metallurgycm.furnace.steel.name=Oven O' Steel
+
+tile.metallurgycm.smelter.ignatius.name=Magma Oven O' Ignatius
+tile.metallurgycm.smelter.shadow.iron.name=Magma Oven O' Shadow Iron
+tile.metallurgycm.smelter.shadow.steel.name=Magma Oven O' Shadow Steel
+tile.metallurgycm.smelter.vyroxeres.name=Magma Oven O' Vyroxeres
+tile.metallurgycm.smelter.inolashite.name=Magma Oven O' Inolashite
+tile.metallurgycm.smelter.kalendrite.name=Magma Oven O' Kalendrite
+tile.metallurgycm.smelter.vulcanite.name=Magma Oven O' Vulcanite
+tile.metallurgycm.smelter.sanguinite.name=Magma Oven O' Sanguinite
