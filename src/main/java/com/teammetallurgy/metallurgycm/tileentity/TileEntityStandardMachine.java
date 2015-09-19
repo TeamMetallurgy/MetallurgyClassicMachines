@@ -1,26 +1,28 @@
 package com.teammetallurgy.metallurgycm.tileentity;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.tileentity.TileEntityFurnace;
 
 import com.teammetallurgy.metallurgycm.block.BlockMetalFurnace;
 
-public class TileEntitySmelter extends TileEntityBaseMachine implements ISidedInventory
+public class TileEntityStandardMachine extends TileEntityBaseMachine implements ISidedInventory
 {
-    private ItemStack[] inventory = new ItemStack[2];
+    protected ItemStack[] inventory = new ItemStack[3];
 
-    private int processingTicks;
-    private int maxProcessingTicks;
-    private int burningTicks;
-    private int maxBurningTicks;
+    protected int processingTicks;
+    protected int maxProcessingTicks;
+    protected int burningTicks;
+    protected int maxBurningTicks;
 
     @Override
     public int getSizeInventory()
     {
-        return 2;
+        return 3;
     }
 
     @Override
@@ -124,7 +126,9 @@ public class TileEntitySmelter extends TileEntityBaseMachine implements ISidedIn
     {
         switch (slot)
         {
-            case 0: // input
+            case 0: // fuel
+                return TileEntityFurnace.isItemFuel(stack);
+            case 1: // input
                 return true;
             default: // output and errored
                 return false;
@@ -146,7 +150,8 @@ public class TileEntitySmelter extends TileEntityBaseMachine implements ISidedIn
     @Override
     public boolean canExtractItem(int slot, ItemStack stack, int side)
     {
-        if (slot == 1 && side == 1) return true;
+        if (slot == 2 && side == 1) return true;
+        if (slot == 0 && stack.getItem() == Items.bucket) return true;
 
         return false;
 
@@ -193,4 +198,5 @@ public class TileEntitySmelter extends TileEntityBaseMachine implements ISidedIn
         nbtCompound.setInteger("Process", processingTicks);
         nbtCompound.setInteger("Burning", burningTicks);
     }
+
 }

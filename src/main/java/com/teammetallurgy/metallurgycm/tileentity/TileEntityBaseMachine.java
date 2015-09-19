@@ -11,6 +11,7 @@ public class TileEntityBaseMachine extends TileEntity
 {
 
     private ForgeDirection facing;
+    private short type;
 
     public void setFacing(ForgeDirection facingDirection)
     {
@@ -22,12 +23,23 @@ public class TileEntityBaseMachine extends TileEntity
         return facing;
     }
 
+    public void setType(int meta)
+    {
+        type = (short) meta;
+    }
+
+    public short getType()
+    {
+        return type;
+    }
+
     @Override
     public void readFromNBT(NBTTagCompound nbtCompound)
     {
         super.readFromNBT(nbtCompound);
 
         facing = ForgeDirection.getOrientation(nbtCompound.getShort("facing"));
+        type = nbtCompound.getShort("type");
     }
 
     @Override
@@ -36,6 +48,7 @@ public class TileEntityBaseMachine extends TileEntity
         super.writeToNBT(nbtCompound);
 
         nbtCompound.setShort("facing", (short) facing.ordinal());
+        nbtCompound.setShort("type", type);
     }
 
     @Override

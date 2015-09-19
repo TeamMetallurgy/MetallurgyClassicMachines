@@ -92,6 +92,9 @@ public abstract class BlockBaseMachine extends BlockContainer
 
         ((TileEntityBaseMachine) tileEntity).setFacing(facingDirection);
 
+        int meta = world.getBlockMetadata(x, y, z);
+        ((TileEntityBaseMachine) tileEntity).setType(meta);
+
     }
 
     public String getUnlocalizedName(ItemStack stack)

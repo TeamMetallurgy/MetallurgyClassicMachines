@@ -1,6 +1,7 @@
 package com.teammetallurgy.metallurgycm.tileentity;
 
-public class TileEntityMetalFurnace extends TileEntityBaseMachine
+
+public class TileEntityMetalFurnace extends TileEntityStandardMachine
 {
 
 }
