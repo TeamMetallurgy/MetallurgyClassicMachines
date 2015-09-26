@@ -13,9 +13,9 @@ public class ContainerMetalFurnace extends Container
     public ContainerMetalFurnace(InventoryPlayer inventoryPlayer, TileEntityMetalFurnace tileEntityMetalFurnace)
     {
         // Fuel
-        addSlotToContainer(new Slot(tileEntityMetalFurnace, 0, 56, 17));
+        addSlotToContainer(new Slot(tileEntityMetalFurnace, 0, 56, 53));
         // Input
-        addSlotToContainer(new Slot(tileEntityMetalFurnace, 1, 56, 53));
+        addSlotToContainer(new Slot(tileEntityMetalFurnace, 1, 56, 17));
         // Output
         addSlotToContainer(new Slot(tileEntityMetalFurnace, 2, 116, 35));
 

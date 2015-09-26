@@ -18,9 +18,9 @@ public class ContainerAbstractor extends Container
         tileEntity = tileEntityAbstractor;
 
         // Fuel
-        addSlotToContainer(new Slot(tileEntity, 0, 56, 17));
+        addSlotToContainer(new Slot(tileEntity, 0, 56, 53));
         // Input
-        addSlotToContainer(new Slot(tileEntity, 1, 56, 53));
+        addSlotToContainer(new Slot(tileEntity, 1, 56, 17));
         // Output
         addSlotToContainer(new Slot(tileEntity, 2, 116, 35));
 
