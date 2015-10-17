@@ -43,6 +43,7 @@ public class MetallurgyCM
         creativeTab = new MetallurgyCMTab();
 
         MetallurgyCMBlocks.init();
+        MetallurgyCMRecipes.init();
 
     }
 
