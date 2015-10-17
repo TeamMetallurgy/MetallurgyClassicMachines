@@ -23,7 +23,7 @@ public class ContainerCrusher extends Container
         // Input
         addSlotToContainer(new Slot(tileEntity, 1, 56, 17));
         // Output
-        addSlotToContainer(new Slot(tileEntity, 2, 116, 35));
+        addSlotToContainer(new SlotCrusher(inventoryPlayer.player, tileEntity, 2, 116, 35));
 
         // Player inventory
         for (y = 0; y < 3; y++)
