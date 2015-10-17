@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.SlotFurnace;
 
 import com.teammetallurgy.metallurgycm.tileentity.TileEntityMetalFurnace;
 
@@ -17,7 +18,7 @@ public class ContainerMetalFurnace extends Container
         // Input
         addSlotToContainer(new Slot(tileEntityMetalFurnace, 1, 56, 17));
         // Output
-        addSlotToContainer(new Slot(tileEntityMetalFurnace, 2, 116, 35));
+        addSlotToContainer(new SlotFurnace(inventoryPlayer.player, tileEntityMetalFurnace, 2, 116, 35));
 
         int x = 0;
         int y = 0;

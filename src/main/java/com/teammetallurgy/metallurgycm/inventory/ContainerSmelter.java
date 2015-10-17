@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.SlotFurnace;
 
 import com.teammetallurgy.metallurgycm.tileentity.TileEntitySmelter;
 
@@ -18,7 +19,7 @@ public class ContainerSmelter extends Container
         // Input
         addSlotToContainer(new Slot(tileEntity, 0, 36, 34));
         // Output
-        addSlotToContainer(new Slot(tileEntity, 1, 96, 34));
+        addSlotToContainer(new SlotFurnace(inventoryPlayer.player, tileEntity, 1, 96, 34));
 
         int x = 0;
         int y = 0;
