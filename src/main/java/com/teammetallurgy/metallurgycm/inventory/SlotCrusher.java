@@ -1,9 +1,12 @@
 package com.teammetallurgy.metallurgycm.inventory;
 
+import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.SlotFurnace;
 import net.minecraft.item.ItemStack;
+
+import com.teammetallurgy.metallurgycm.crafting.RecipesCrusher;
 
 public class SlotCrusher extends SlotFurnace
 {
@@ -30,7 +33,32 @@ public class SlotCrusher extends SlotFurnace
 
         if (!player.worldObj.isRemote)
         {
-            // TODO: give the player experience
+            int totalEssence = currentStackSize;
+            int currentEssence = 0;
+            float resultEssence = RecipesCrusher.getExperiance(itemStack);
+
+            if (resultEssence == 0.0F)
+            {
+                totalEssence = 0;
+            }
+            else if (resultEssence < 1.0F)
+            {
+                currentEssence = (int) Math.floor(totalEssence * resultEssence);
+
+                if (currentEssence < Math.ceil(totalEssence * resultEssence) && Math.random() < totalEssence * resultEssence - currentEssence)
+                {
+                    currentEssence++;
+                }
+
+                totalEssence = currentEssence;
+            }
+
+            while (totalEssence > 0)
+            {
+                currentEssence = EntityXPOrb.getXPSplit(totalEssence);
+                totalEssence -= currentEssence;
+                player.worldObj.spawnEntityInWorld(new EntityXPOrb(player.worldObj, player.posX, player.posY + 0.5D, player.posZ + 0.5D, currentEssence));
+            }
         }
 
         currentStackSize = 0;
