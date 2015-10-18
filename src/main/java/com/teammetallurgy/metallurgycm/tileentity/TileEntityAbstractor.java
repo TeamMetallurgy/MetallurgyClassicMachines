@@ -5,6 +5,10 @@ import java.util.Random;
 import net.minecraft.entity.item.EntityXPOrb;
 
 import com.teammetallurgy.metallurgycm.crafting.RecipesAbstractor;
+import com.teammetallurgy.metallurgycm.networking.NetworkHandler;
+import com.teammetallurgy.metallurgycm.networking.message.MessageMachineRunning;
+
+import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 
 public class TileEntityAbstractor extends TileEntityStandardMachine
 {
@@ -76,7 +80,9 @@ public class TileEntityAbstractor extends TileEntityStandardMachine
         if (burning != currentlyBurning())
         {
             requiresUpdate = true;
-            // TODO: update rendering state
+            setRunning(currentlyBurning());
+            TargetPoint point = new TargetPoint(this.worldObj.provider.dimensionId, this.xCoord, this.yCoord, this.zCoord, 64.0D);
+            NetworkHandler.CHANNEL.sendToAllAround(new MessageMachineRunning(this), point);
         }
 
         if (requiresUpdate) markDirty();
