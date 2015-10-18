@@ -24,6 +24,12 @@ public class TileEntityRendererCrusher extends TileEntitySpecialRenderer
     private ResourceLocation ironCrusherTexture = new ResourceLocation(MetallurgyCM.MOD_ID.toLowerCase(Locale.US) + ":textures/blocks/crusher/iron_model.png");
     private ResourceLocation steelCrusherTexture = new ResourceLocation(MetallurgyCM.MOD_ID.toLowerCase(Locale.US) + ":textures/blocks/crusher/steel_model.png");
 
+    private ResourceLocation stoneCrusherOnTexture = new ResourceLocation(MetallurgyCM.MOD_ID.toLowerCase(Locale.US) + ":textures/blocks/crusher/stone_model_burning.png");
+    private ResourceLocation copperCrusherOnTexture = new ResourceLocation(MetallurgyCM.MOD_ID.toLowerCase(Locale.US) + ":textures/blocks/crusher/copper_model_burning.png");
+    private ResourceLocation bronzeCrusherOnTexture = new ResourceLocation(MetallurgyCM.MOD_ID.toLowerCase(Locale.US) + ":textures/blocks/crusher/bronze_model_burning.png");
+    private ResourceLocation ironCrusherOnTexture = new ResourceLocation(MetallurgyCM.MOD_ID.toLowerCase(Locale.US) + ":textures/blocks/crusher/iron_model_burning.png");
+    private ResourceLocation steelCrusherOnTexture = new ResourceLocation(MetallurgyCM.MOD_ID.toLowerCase(Locale.US) + ":textures/blocks/crusher/steel_model_burning.png");
+
     public void renderTileEntityAt(TileEntityCrusher tileEntityCrusher, double x, double y, double z, float renderTicks)
     {
 
@@ -59,7 +65,8 @@ public class TileEntityRendererCrusher extends TileEntitySpecialRenderer
         GL11.glRotatef(180.0F, 1.0F, 0.0F, 0F);
         GL11.glRotatef(angle, 0.0F, 1.0F, 0.0F);
 
-        bindCrusherTexture(tileEntityCrusher.getBlockMetadata());
+        if (tileEntityCrusher.isRunning()) bindCrusherOnTexture(tileEntityCrusher.getBlockMetadata());
+        else bindCrusherTexture(tileEntityCrusher.getBlockMetadata());
         modelCrusher.renderAll();
         GL11.glPopMatrix();
     }
@@ -82,6 +89,28 @@ public class TileEntityRendererCrusher extends TileEntitySpecialRenderer
                 break;
             default:
                 bindTexture(stoneCrusherTexture);
+
+        }
+    }
+
+    private void bindCrusherOnTexture(int meta)
+    {
+        switch (meta)
+        {
+            case 1:
+                bindTexture(copperCrusherOnTexture);
+                break;
+            case 2:
+                bindTexture(bronzeCrusherOnTexture);
+                break;
+            case 3:
+                bindTexture(ironCrusherOnTexture);
+                break;
+            case 4:
+                bindTexture(steelCrusherOnTexture);
+                break;
+            default:
+                bindTexture(stoneCrusherOnTexture);
 
         }
     }
