@@ -73,7 +73,7 @@ public class TileEntityMetalFurnace extends TileEntityStandardMachine
         if (burning != currentlyBurning())
         {
             requiresUpdate = true;
-            // update rendering state
+            // TODO: update rendering state
         }
 
         if (requiresUpdate) markDirty();
