@@ -14,6 +14,7 @@ import com.teammetallurgy.metallurgycm.MetallurgyCM;
 import com.teammetallurgy.metallurgycm.handler.MetallurgyCMGuiHandler;
 import com.teammetallurgy.metallurgycm.tileentity.TileEntityBaseMachine;
 import com.teammetallurgy.metallurgycm.tileentity.TileEntityMetalFurnace;
+import com.teammetallurgy.metallurgycm.tileentity.TileEntityStandardMachine;
 
 public class BlockMetalFurnace extends BlockBaseMachine
 {
@@ -74,7 +75,11 @@ public class BlockMetalFurnace extends BlockBaseMachine
 
         ForgeDirection facingDirection = ((TileEntityBaseMachine) tileEntity).getFacing();
 
-        if (isFront(side, facingDirection)) return frontIcons[meta];
+        if (isFront(side, facingDirection))
+        {
+            if (((TileEntityStandardMachine) tileEntity).isRunning()) return activeIcons[meta];
+            else return frontIcons[meta];
+        }
 
         switch (side)
         {

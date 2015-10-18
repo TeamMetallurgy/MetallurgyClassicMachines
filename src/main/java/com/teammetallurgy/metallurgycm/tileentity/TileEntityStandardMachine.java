@@ -19,6 +19,8 @@ public class TileEntityStandardMachine extends TileEntityBaseMachine implements 
     protected int burningTicks;
     protected int maxBurningTicks;
 
+    protected boolean running;
+
     @Override
     public int getSizeInventory()
     {
@@ -157,6 +159,16 @@ public class TileEntityStandardMachine extends TileEntityBaseMachine implements 
 
     }
 
+    public boolean isRunning()
+    {
+        return running;
+    }
+
+    public void setRunning(boolean isRunning)
+    {
+        running = isRunning;
+    }
+
     @Override
     public void readFromNBT(NBTTagCompound nbtCompound)
     {
@@ -173,6 +185,7 @@ public class TileEntityStandardMachine extends TileEntityBaseMachine implements 
 
         processingTicks = nbtCompound.getInteger("Process");
         burningTicks = nbtCompound.getInteger("Burning");
+        running = nbtCompound.getBoolean("Running");
 
     }
 
@@ -197,6 +210,7 @@ public class TileEntityStandardMachine extends TileEntityBaseMachine implements 
 
         nbtCompound.setInteger("Process", processingTicks);
         nbtCompound.setInteger("Burning", burningTicks);
+        nbtCompound.setBoolean("Running", running);
     }
 
 }

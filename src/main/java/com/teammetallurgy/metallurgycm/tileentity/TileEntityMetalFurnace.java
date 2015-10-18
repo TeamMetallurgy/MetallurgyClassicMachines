@@ -4,6 +4,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.tileentity.TileEntityFurnace;
 
+import com.teammetallurgy.metallurgycm.networking.NetworkHandler;
+import com.teammetallurgy.metallurgycm.networking.message.MessageMachineRunning;
+
+import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
+
 public class TileEntityMetalFurnace extends TileEntityStandardMachine
 {
 
@@ -73,7 +78,9 @@ public class TileEntityMetalFurnace extends TileEntityStandardMachine
         if (burning != currentlyBurning())
         {
             requiresUpdate = true;
-            // TODO: update rendering state
+            setRunning(currentlyBurning());
+            TargetPoint point = new TargetPoint(this.worldObj.provider.dimensionId, this.xCoord, this.yCoord, this.zCoord, 64.0D);
+            NetworkHandler.CHANNEL.sendToAllAround(new MessageMachineRunning(this), point);
         }
 
         if (requiresUpdate) markDirty();
