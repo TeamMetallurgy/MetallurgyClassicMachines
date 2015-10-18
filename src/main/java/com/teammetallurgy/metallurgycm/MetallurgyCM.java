@@ -4,6 +4,7 @@ import net.minecraftforge.common.config.Configuration;
 
 import com.teammetallurgy.metallurgycm.handler.ConfigHandler;
 import com.teammetallurgy.metallurgycm.handler.LogHandler;
+import com.teammetallurgy.metallurgycm.networking.NetworkHandler;
 import com.teammetallurgy.metallurgycm.proxy.IProxy;
 
 import cpw.mods.fml.common.Mod;
@@ -51,6 +52,7 @@ public class MetallurgyCM
     public void init(FMLInitializationEvent event)
     {
         proxy.init();
+        NetworkHandler.init();
     }
 
     @EventHandler
