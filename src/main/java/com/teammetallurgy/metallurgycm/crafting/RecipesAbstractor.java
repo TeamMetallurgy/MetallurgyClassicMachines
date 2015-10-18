@@ -9,16 +9,16 @@ public class RecipesAbstractor
 {
     private static RecipesAbstractor INSTANCE = new RecipesAbstractor();
     private HashMap<ItemStack, Float> inputBaseEssences = new HashMap<ItemStack, Float>();
-    private HashMap<ItemStack, Float> catalystMultipliers = new HashMap<ItemStack, Float>();
+    private HashMap<ItemStack, Integer> catalystBurning = new HashMap<ItemStack, Integer>();
 
     public static void addBaseMaterial(ItemStack baseItemStack, float baseEssense)
     {
         RecipesAbstractor.INSTANCE.inputBaseEssences.put(baseItemStack, baseEssense);
     }
 
-    public static void addCatalyst(ItemStack catalystItemStack, float multiplyer)
+    public static void addCatalyst(ItemStack catalystItemStack, int burningTime)
     {
-        RecipesAbstractor.INSTANCE.catalystMultipliers.put(catalystItemStack, multiplyer);
+        RecipesAbstractor.INSTANCE.catalystBurning.put(catalystItemStack, burningTime);
     }
 
     public static float getBaseEssence(ItemStack baseStack)
@@ -38,21 +38,21 @@ public class RecipesAbstractor
         return essence;
     }
 
-    public static float getCatalystMultiplier(ItemStack catalystStack)
+    public static int getCatalystBurning(ItemStack catalystStack)
     {
-        float multiplier = 0.0F;
+        int burningTime = 0;
 
-        for (Entry<ItemStack, Float> entry : INSTANCE.catalystMultipliers.entrySet())
+        for (Entry<ItemStack, Integer> entry : INSTANCE.catalystBurning.entrySet())
         {
             ItemStack entryStack = entry.getKey();
             if (catalystStack.isItemEqual(entryStack))
             {
-                multiplier = entry.getValue().floatValue();
+                burningTime = entry.getValue().intValue();
                 break;
             }
         }
 
-        return multiplier;
+        return burningTime;
 
     }
 
