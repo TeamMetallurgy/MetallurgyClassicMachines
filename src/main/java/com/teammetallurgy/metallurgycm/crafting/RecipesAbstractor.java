@@ -8,10 +8,10 @@ import net.minecraft.item.ItemStack;
 public class RecipesAbstractor
 {
     private static RecipesAbstractor INSTANCE = new RecipesAbstractor();
-    private HashMap<ItemStack, Float> inputBaseEssences = new HashMap<ItemStack, Float>();
+    private HashMap<ItemStack, Integer> inputBaseEssences = new HashMap<ItemStack, Integer>();
     private HashMap<ItemStack, Integer> catalystBurning = new HashMap<ItemStack, Integer>();
 
-    public static void addBaseMaterial(ItemStack baseItemStack, float baseEssense)
+    public static void addBaseMaterial(ItemStack baseItemStack, int baseEssense)
     {
         RecipesAbstractor.INSTANCE.inputBaseEssences.put(baseItemStack, baseEssense);
     }
@@ -21,16 +21,16 @@ public class RecipesAbstractor
         RecipesAbstractor.INSTANCE.catalystBurning.put(catalystItemStack, burningTime);
     }
 
-    public static float getBaseEssence(ItemStack baseStack)
+    public static int getBaseEssence(ItemStack baseStack)
     {
-        float essence = 0.0F;
+        int essence = 0;
 
-        for (Entry<ItemStack, Float> entry : INSTANCE.inputBaseEssences.entrySet())
+        for (Entry<ItemStack, Integer> entry : INSTANCE.inputBaseEssences.entrySet())
         {
             ItemStack entryStack = entry.getKey();
             if (baseStack.isItemEqual(entryStack))
             {
-                essence = entry.getValue().floatValue();
+                essence = entry.getValue().intValue();
                 break;
             }
         }

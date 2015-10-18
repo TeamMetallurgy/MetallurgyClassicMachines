@@ -10,7 +10,7 @@ public class MetallurgyCMRecipes
 {
     public static void init()
     {
-        RecipesAbstractor.addBaseMaterial(new ItemStack(Items.apple), 2.0F);
+        RecipesAbstractor.addBaseMaterial(new ItemStack(Items.apple), 20);
         RecipesAbstractor.addCatalyst(new ItemStack(Items.cooked_beef), 1000);
 
         RecipesCrusher.addRecipe(new ItemStack(Items.apple), new ItemStack(Items.cooked_beef), 2.0F);
