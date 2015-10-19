@@ -1,6 +1,7 @@
 package com.teammetallurgy.metallurgycm.block;
 
 import java.util.Locale;
+import java.util.Random;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,6 +18,9 @@ import com.teammetallurgy.metallurgycm.MetallurgyCM;
 import com.teammetallurgy.metallurgycm.handler.MetallurgyCMGuiHandler;
 import com.teammetallurgy.metallurgycm.tileentity.TileEntityBaseMachine;
 import com.teammetallurgy.metallurgycm.tileentity.TileEntitySmelter;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockSmelter extends BlockBaseMachine
 {
@@ -150,6 +154,47 @@ public class BlockSmelter extends BlockBaseMachine
                 return frontIcons[meta][storageLevel];
             default:
                 return sideIcons[meta][storageLevel];
+        }
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void randomDisplayTick(World world, int x, int y, int z, Random random)
+    {
+        super.randomDisplayTick(world, x, y, z, random);
+
+        TileEntity tileEntity = world.getTileEntity(x, y, z);
+        if (!(tileEntity instanceof TileEntitySmelter)) return;
+
+        if (!((TileEntitySmelter) tileEntity).isRunning()) return;
+
+        ForgeDirection facing = ((TileEntitySmelter) tileEntity).getFacing();
+        double centerX = x + 0.5D;
+        double randomY = y + 0.0D + random.nextFloat() * 6.0D / 16.0D;
+        double centerZ = z + 0.5D;
+        double faceOffset = 0.6D;
+        double randomOffset = random.nextFloat() * 0.6D - 0.3D;
+
+        switch (facing)
+        {
+            case NORTH:
+                world.spawnParticle("smoke", centerX + randomOffset, randomY, centerZ - faceOffset, 0.0D, 0.0D, 0.0D);
+                world.spawnParticle("lava", centerX + randomOffset, randomY, centerZ - faceOffset, 0.0D, 0.0D, 0.0D);
+                break;
+            case SOUTH:
+                world.spawnParticle("smoke", centerX + randomOffset, randomY, centerZ + faceOffset, 0.0D, 0.0D, 0.0D);
+                world.spawnParticle("lava", centerX + randomOffset, randomY, centerZ + faceOffset, 0.0D, 0.0D, 0.0D);
+                break;
+            case WEST:
+                world.spawnParticle("smoke", centerX - faceOffset, randomY, centerZ + randomOffset, 0.0D, 0.0D, 0.0D);
+                world.spawnParticle("lava", centerX - faceOffset, randomY, centerZ + randomOffset, 0.0D, 0.0D, 0.0D);
+                break;
+            case EAST:
+                world.spawnParticle("smoke", centerX + faceOffset, randomY, centerZ + randomOffset, 0.0D, 0.0D, 0.0D);
+                world.spawnParticle("lava", centerX + faceOffset, randomY, centerZ + randomOffset, 0.0D, 0.0D, 0.0D);
+                break;
+            default:
+                break;
         }
     }
 
