@@ -4,11 +4,14 @@ import java.util.Locale;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidStack;
 
 import com.teammetallurgy.metallurgycm.MetallurgyCM;
 import com.teammetallurgy.metallurgycm.handler.MetallurgyCMGuiHandler;
@@ -38,6 +41,34 @@ public class BlockSmelter extends BlockBaseMachine
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float xDistance, float yDistance, float zDistance)
     {
+        // Try to fill using held fluid container ex. Lava Bucket
+        ItemStack equipedItemStack = player.getHeldItem();
+
+        if (FluidContainerRegistry.isFilledContainer(equipedItemStack))
+        {
+            TileEntity tileEntity = world.getTileEntity(x, y, z);
+            if (tileEntity instanceof TileEntitySmelter)
+            {
+                TileEntitySmelter teSmelter = (TileEntitySmelter) tileEntity;
+                FluidStack fuelStack = FluidContainerRegistry.getFluidForFilledItem(equipedItemStack);
+
+                if (teSmelter.canFill(teSmelter.getFacing(), fuelStack.getFluid()))
+                {
+                    int containerVolume = FluidContainerRegistry.getContainerCapacity(equipedItemStack);
+                    int filledSimulated = teSmelter.fill(teSmelter.getFacing(), fuelStack, false);
+
+                    if (filledSimulated == containerVolume)
+                    {
+                        ItemStack emptyContainer = FluidContainerRegistry.drainFluidContainer(equipedItemStack);
+                        teSmelter.fill(teSmelter.getFacing(), fuelStack, true);
+                        player.setCurrentItemOrArmor(0, emptyContainer);
+                        return false;
+                    }
+                }
+            }
+        }
+
+        // Open GUI
         player.openGui(MetallurgyCM.MOD_ID, MetallurgyCMGuiHandler.SMELTER_ID, world, x, y, z);
         return true;
     }

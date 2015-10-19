@@ -3,12 +3,25 @@ package com.teammetallurgy.metallurgycm.tileentity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.IFluidHandler;
 
 import com.teammetallurgy.metallurgycm.block.BlockMetalFurnace;
+import com.teammetallurgy.metallurgycm.networking.NetworkHandler;
+import com.teammetallurgy.metallurgycm.networking.message.MessageMachineRunning;
 
-public class TileEntitySmelter extends TileEntityBaseMachine implements ISidedInventory
+import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
+
+public class TileEntitySmelter extends TileEntityBaseMachine implements ISidedInventory, IFluidHandler
 {
     private ItemStack[] inventory = new ItemStack[2];
 
@@ -16,6 +29,10 @@ public class TileEntitySmelter extends TileEntityBaseMachine implements ISidedIn
     private int maxProcessingTicks;
     private int burningTicks;
     private int maxBurningTicks;
+
+    private boolean running;
+
+    private FluidTank tank = new FluidTank(FluidContainerRegistry.BUCKET_VOLUME * 10);
 
     @Override
     public int getSizeInventory()
@@ -153,6 +170,54 @@ public class TileEntitySmelter extends TileEntityBaseMachine implements ISidedIn
     }
 
     @Override
+    public int fill(ForgeDirection from, FluidStack resource, boolean doFill)
+    {
+        if (resource.getFluid() != FluidRegistry.LAVA) return 0;
+        return tank.fill(resource, doFill);
+    }
+
+    @Override
+    public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain)
+    {
+        return null;
+    }
+
+    @Override
+    public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain)
+    {
+        return null;
+    }
+
+    @Override
+    public boolean canFill(ForgeDirection from, Fluid fluid)
+    {
+        if (fluid != FluidRegistry.LAVA) return false;
+        return true;
+    }
+
+    @Override
+    public boolean canDrain(ForgeDirection from, Fluid fluid)
+    {
+        return false;
+    }
+
+    @Override
+    public FluidTankInfo[] getTankInfo(ForgeDirection from)
+    {
+        return new FluidTankInfo[] { tank.getInfo() };
+    }
+
+    public boolean isRunning()
+    {
+        return running;
+    }
+
+    public void setRunning(boolean isRunning)
+    {
+        running = isRunning;
+    }
+
+    @Override
     public void readFromNBT(NBTTagCompound nbtCompound)
     {
         super.readFromNBT(nbtCompound);
@@ -168,6 +233,9 @@ public class TileEntitySmelter extends TileEntityBaseMachine implements ISidedIn
 
         processingTicks = nbtCompound.getInteger("Process");
         burningTicks = nbtCompound.getInteger("Burning");
+        running = nbtCompound.getBoolean("Running");
+
+        tank.readFromNBT(nbtCompound);
 
     }
 
@@ -192,5 +260,116 @@ public class TileEntitySmelter extends TileEntityBaseMachine implements ISidedIn
 
         nbtCompound.setInteger("Process", processingTicks);
         nbtCompound.setInteger("Burning", burningTicks);
+        nbtCompound.setBoolean("Running", running);
+
+        tank.writeToNBT(nbtCompound);
     }
+
+    @Override
+    public void updateEntity()
+    {
+        super.updateEntity();
+
+        boolean burning = burningTicks > 0;
+        boolean requiresUpdate = false;
+        maxProcessingTicks = 200;
+
+        if (burning)
+        {
+            burningTicks--;
+        }
+
+        if (worldObj.isRemote) return;
+
+        if (burningTicks != 0 || inventory[0] != null && tank.getFluidAmount() >= 10)
+        {
+            if (burningTicks == 0 && canProcess())
+            {
+                // Try to start burning
+
+                burningTicks = maxBurningTicks = maxProcessingTicks;
+
+                if (burningTicks > 0)
+                {
+                    // Consume fuel
+                    requiresUpdate = true;
+
+                    tank.drain(10, true);
+
+                }
+
+            }
+
+            if (currentlyBurning() && canProcess())
+            {
+                processingTicks++;
+
+                // Process Input
+                if (processingTicks >= maxProcessingTicks)
+                {
+                    processingTicks = 0;
+                    processInput();
+                    requiresUpdate = true;
+                }
+            }
+            else
+            {
+                processingTicks = 0;
+            }
+
+        }
+
+        if (burning != currentlyBurning())
+        {
+            requiresUpdate = true;
+            setRunning(currentlyBurning());
+            TargetPoint point = new TargetPoint(this.worldObj.provider.dimensionId, this.xCoord, this.yCoord, this.zCoord, 64.0D);
+            NetworkHandler.CHANNEL.sendToAllAround(new MessageMachineRunning(this), point);
+        }
+
+        if (requiresUpdate) markDirty();
+    }
+
+    private boolean canProcess()
+    {
+
+        if (inventory[0] == null) return false;
+
+        ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(inventory[0]);
+        if (result == null) return false;
+        if (inventory[1] == null) return true;
+        if (!inventory[1].isItemEqual(result)) return false;
+        int totalStackSize = inventory[1].stackSize + result.stackSize;
+        return totalStackSize <= getInventoryStackLimit() && totalStackSize <= result.getMaxStackSize();
+
+    }
+
+    private void processInput()
+    {
+        if (!canProcess()) return;
+
+        ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(inventory[0]);
+
+        if (inventory[1] == null)
+        {
+            inventory[1] = result.copy();
+        }
+        else if (inventory[1].isItemEqual(result))
+        {
+            inventory[1].stackSize += result.stackSize;
+        }
+
+        inventory[0].stackSize--;
+
+        if (inventory[0].stackSize <= 0)
+        {
+            inventory[0] = null;
+        }
+    }
+
+    private boolean currentlyBurning()
+    {
+        return burningTicks > 0;
+    }
+
 }

@@ -4,6 +4,7 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
+import com.teammetallurgy.metallurgycm.tileentity.TileEntitySmelter;
 import com.teammetallurgy.metallurgycm.tileentity.TileEntityStandardMachine;
 
 import cpw.mods.fml.client.FMLClientHandler;
@@ -25,6 +26,15 @@ public class MessageMachineRunning implements IMessage, IMessageHandler<MessageM
     }
 
     public MessageMachineRunning(TileEntityStandardMachine tileEntity)
+    {
+        x = tileEntity.xCoord;
+        y = tileEntity.yCoord;
+        z = tileEntity.zCoord;
+
+        running = tileEntity.isRunning();
+    }
+
+    public MessageMachineRunning(TileEntitySmelter tileEntity)
     {
         x = tileEntity.xCoord;
         y = tileEntity.yCoord;
@@ -62,6 +72,12 @@ public class MessageMachineRunning implements IMessage, IMessageHandler<MessageM
         if (tileEntity instanceof TileEntityStandardMachine)
         {
             ((TileEntityStandardMachine) tileEntity).setRunning(message.running);
+            world.markBlockForUpdate(message.x, message.y, message.z);
+        }
+
+        if (tileEntity instanceof TileEntitySmelter)
+        {
+            ((TileEntitySmelter) tileEntity).setRunning(message.running);
             world.markBlockForUpdate(message.x, message.y, message.z);
         }
 
