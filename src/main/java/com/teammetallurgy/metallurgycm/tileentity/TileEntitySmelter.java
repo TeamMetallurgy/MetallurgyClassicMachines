@@ -25,10 +25,12 @@ public class TileEntitySmelter extends TileEntityBaseMachine implements ISidedIn
 {
     private ItemStack[] inventory = new ItemStack[2];
 
-    private int processingTicks;
-    private int maxProcessingTicks;
+    public int processingTicks;
+    public int maxProcessingTicks;
     private int burningTicks;
     private int maxBurningTicks;
+    public int fluidLevel;
+    public int maxCapacity;
 
     private boolean running;
 
@@ -273,6 +275,8 @@ public class TileEntitySmelter extends TileEntityBaseMachine implements ISidedIn
         boolean burning = burningTicks > 0;
         boolean requiresUpdate = false;
         maxProcessingTicks = 200;
+        maxCapacity = tank.getCapacity();
+        fluidLevel = tank.getFluidAmount();
 
         if (burning)
         {
@@ -295,7 +299,6 @@ public class TileEntitySmelter extends TileEntityBaseMachine implements ISidedIn
                     requiresUpdate = true;
 
                     tank.drain(10, true);
-
                 }
 
             }
@@ -367,9 +370,25 @@ public class TileEntitySmelter extends TileEntityBaseMachine implements ISidedIn
         }
     }
 
-    private boolean currentlyBurning()
+    public boolean currentlyBurning()
     {
         return burningTicks > 0;
+    }
+
+    public int getScaledProcessingTime(int scale)
+    {
+        int processingDivisor = maxProcessingTicks;
+        if (processingDivisor <= 0) processingDivisor = 1;
+
+        return processingTicks * scale / processingDivisor;
+    }
+
+    public int getScaledFluidLevel(int scale)
+    {
+        int fluidDivisor = maxCapacity;
+        if (fluidDivisor <= 0) fluidDivisor = 1;
+
+        return fluidLevel * scale / fluidDivisor;
     }
 
 }

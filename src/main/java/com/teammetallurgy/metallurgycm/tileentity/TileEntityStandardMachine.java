@@ -14,10 +14,10 @@ public class TileEntityStandardMachine extends TileEntityBaseMachine implements 
 {
     protected ItemStack[] inventory = new ItemStack[3];
 
-    protected int processingTicks;
-    protected int maxProcessingTicks;
-    protected int burningTicks;
-    protected int maxBurningTicks;
+    public int processingTicks;
+    public int maxProcessingTicks;
+    public int burningTicks;
+    public int maxBurningTicks;
 
     protected boolean running;
 
@@ -167,6 +167,27 @@ public class TileEntityStandardMachine extends TileEntityBaseMachine implements 
     public void setRunning(boolean isRunning)
     {
         running = isRunning;
+    }
+
+    public boolean currentlyBurning()
+    {
+        return burningTicks > 0;
+    }
+
+    public int getScaledBurningTicks(int scale)
+    {
+        int burningDivisor = maxBurningTicks;
+        if (burningDivisor <= 0) burningDivisor = 1;
+
+        return burningTicks * scale / burningDivisor;
+    }
+
+    public int getScaledProcessingTime(int scale)
+    {
+        int processingDivisor = maxProcessingTicks;
+        if (processingDivisor <= 0) processingDivisor = 1;
+
+        return processingTicks * scale / processingDivisor;
     }
 
     @Override

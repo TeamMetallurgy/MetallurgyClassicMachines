@@ -1,5 +1,8 @@
 itemGroup.metallurgycm=Metallurgy Classic Machines
 
+tooltip.metallurgymc.lava.level=Lava Level
+tooltip.metallurgymc.smelter.capacity=Capacity
+
 container.metallurgycm.abstractor.adamantine=Adamantine Abstractor
 container.metallurgycm.abstractor.atlarus=Atlarus Abstractor
 container.metallurgycm.abstractor.black.steel=Black Steel Abstractor

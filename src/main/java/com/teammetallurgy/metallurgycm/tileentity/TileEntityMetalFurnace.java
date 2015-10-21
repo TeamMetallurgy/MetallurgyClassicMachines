@@ -123,8 +123,4 @@ public class TileEntityMetalFurnace extends TileEntityStandardMachine
         }
     }
 
-    private boolean currentlyBurning()
-    {
-        return burningTicks > 0;
-    }
 }

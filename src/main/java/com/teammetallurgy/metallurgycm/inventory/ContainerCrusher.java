@@ -3,13 +3,21 @@ package com.teammetallurgy.metallurgycm.inventory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 
 import com.teammetallurgy.metallurgycm.tileentity.TileEntityCrusher;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ContainerCrusher extends Container
 {
     private TileEntityCrusher tileEntity;
+    private int lastProcessingTicks;
+    private int lastMaxProcessingTicks;
+    private int lastBurningTicks;
+    private int lastMaxBurningTicks;
 
     public ContainerCrusher(InventoryPlayer inventoryPlayer, TileEntityCrusher tileEntityCrusher)
     {
@@ -45,6 +53,62 @@ public class ContainerCrusher extends Container
     public boolean canInteractWith(EntityPlayer player)
     {
         return true;
+    }
+
+    @Override
+    public void addCraftingToCrafters(ICrafting crafter)
+    {
+        super.addCraftingToCrafters(crafter);
+
+        crafter.sendProgressBarUpdate(this, 0, tileEntity.processingTicks);
+        crafter.sendProgressBarUpdate(this, 1, tileEntity.maxProcessingTicks);
+        crafter.sendProgressBarUpdate(this, 2, tileEntity.burningTicks);
+        crafter.sendProgressBarUpdate(this, 3, tileEntity.maxBurningTicks);
+    }
+
+    @Override
+    public void detectAndSendChanges()
+    {
+        super.detectAndSendChanges();
+
+        for (int i = 0; i < crafters.size(); i++)
+        {
+            ICrafting crafter = (ICrafting) crafters.get(i);
+
+            if (lastProcessingTicks != tileEntity.processingTicks) crafter.sendProgressBarUpdate(this, 0, tileEntity.processingTicks);
+
+            if (lastMaxProcessingTicks != tileEntity.maxProcessingTicks) crafter.sendProgressBarUpdate(this, 1, tileEntity.maxProcessingTicks);
+
+            if (lastBurningTicks != tileEntity.burningTicks) crafter.sendProgressBarUpdate(this, 2, tileEntity.burningTicks);
+
+            if (lastMaxBurningTicks != tileEntity.maxBurningTicks) crafter.sendProgressBarUpdate(this, 3, tileEntity.maxBurningTicks);
+        }
+
+        lastProcessingTicks = tileEntity.processingTicks;
+        lastMaxProcessingTicks = tileEntity.maxProcessingTicks;
+        lastBurningTicks = tileEntity.burningTicks;
+        lastMaxBurningTicks = tileEntity.maxBurningTicks;
+
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void updateProgressBar(int id, int value)
+    {
+        switch (id)
+        {
+            case 0:
+                tileEntity.processingTicks = value;
+                break;
+            case 1:
+                tileEntity.maxProcessingTicks = value;
+                break;
+            case 2:
+                tileEntity.burningTicks = value;
+                break;
+            case 3:
+                tileEntity.maxBurningTicks = value;
+        }
     }
 
 }

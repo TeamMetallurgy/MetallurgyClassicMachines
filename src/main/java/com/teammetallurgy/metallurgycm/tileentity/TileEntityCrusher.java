@@ -122,9 +122,4 @@ public class TileEntityCrusher extends TileEntityStandardMachine
             inventory[1] = null;
         }
     }
-
-    private boolean currentlyBurning()
-    {
-        return burningTicks > 0;
-    }
 }

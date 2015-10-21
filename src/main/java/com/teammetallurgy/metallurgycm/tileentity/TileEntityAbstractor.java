@@ -145,9 +145,4 @@ public class TileEntityAbstractor extends TileEntityStandardMachine
         }
 
     }
-
-    private boolean currentlyBurning()
-    {
-        return burningTicks > 0;
-    }
 }

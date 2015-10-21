@@ -28,6 +28,15 @@ public class GuiMetalFurnace extends GuiContainer
 
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 
+        if (tileEntity.currentlyBurning())
+        {
+            int scale = tileEntity.getScaledProcessingTime(24);
+            drawTexturedModalRect(guiLeft + 79, guiTop + 34, 176, 14, scale + 1, 16);
+
+            scale = tileEntity.getScaledBurningTicks(13);
+            drawTexturedModalRect(guiLeft + 56, guiTop + 36 + 12 - scale, 176, 12 - scale, 14, scale + 1);
+        }
+
     }
 
     @Override
