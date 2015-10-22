@@ -1,12 +1,15 @@
 package com.teammetallurgy.metallurgycm.inventory;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotFurnace;
 
+import com.teammetallurgy.metallurgycm.networking.NetworkHandler;
+import com.teammetallurgy.metallurgycm.networking.message.MessageContainerProperties;
 import com.teammetallurgy.metallurgycm.tileentity.TileEntitySmelter;
 
 import cpw.mods.fml.relauncher.Side;
@@ -60,10 +63,14 @@ public class ContainerSmelter extends Container
     {
         super.addCraftingToCrafters(crafter);
 
-        crafter.sendProgressBarUpdate(this, 0, tileEntity.processingTicks);
-        crafter.sendProgressBarUpdate(this, 1, tileEntity.maxProcessingTicks);
-        crafter.sendProgressBarUpdate(this, 2, tileEntity.fluidLevel);
-        crafter.sendProgressBarUpdate(this, 3, tileEntity.maxCapacity);
+        if (!(crafter instanceof EntityPlayerMP)) { return; }
+
+        EntityPlayerMP player = (EntityPlayerMP) crafter;
+
+        NetworkHandler.CHANNEL.sendTo(new MessageContainerProperties(this.windowId, 0, tileEntity.processingTicks), player);
+        NetworkHandler.CHANNEL.sendTo(new MessageContainerProperties(this.windowId, 1, tileEntity.maxProcessingTicks), player);
+        NetworkHandler.CHANNEL.sendTo(new MessageContainerProperties(this.windowId, 2, tileEntity.fluidLevel), player);
+        NetworkHandler.CHANNEL.sendTo(new MessageContainerProperties(this.windowId, 3, tileEntity.maxCapacity), player);
     }
 
     @Override
@@ -75,13 +82,32 @@ public class ContainerSmelter extends Container
         {
             ICrafting crafter = (ICrafting) crafters.get(i);
 
-            if (lastProcessingTicks != tileEntity.processingTicks) crafter.sendProgressBarUpdate(this, 0, tileEntity.processingTicks);
+            if (!(crafter instanceof EntityPlayerMP))
+            {
+                continue;
+            }
 
-            if (lastMaxProcessingTicks != tileEntity.maxProcessingTicks) crafter.sendProgressBarUpdate(this, 1, tileEntity.maxProcessingTicks);
+            EntityPlayerMP player = (EntityPlayerMP) crafter;
 
-            if (lastFluidLevel != tileEntity.fluidLevel) crafter.sendProgressBarUpdate(this, 2, tileEntity.fluidLevel);
+            if (lastProcessingTicks != tileEntity.processingTicks)
+            {
+                NetworkHandler.CHANNEL.sendTo(new MessageContainerProperties(this.windowId, 0, tileEntity.processingTicks), player);
+            }
 
-            if (lastMaxCapacity != tileEntity.maxCapacity) crafter.sendProgressBarUpdate(this, 3, tileEntity.maxCapacity);
+            if (lastMaxProcessingTicks != tileEntity.maxProcessingTicks)
+            {
+                NetworkHandler.CHANNEL.sendTo(new MessageContainerProperties(this.windowId, 1, tileEntity.maxProcessingTicks), player);
+            }
+
+            if (lastFluidLevel != tileEntity.fluidLevel)
+            {
+                NetworkHandler.CHANNEL.sendTo(new MessageContainerProperties(this.windowId, 2, tileEntity.fluidLevel), player);
+            }
+
+            if (lastMaxCapacity != tileEntity.maxCapacity)
+            {
+                NetworkHandler.CHANNEL.sendTo(new MessageContainerProperties(this.windowId, 3, tileEntity.maxCapacity), player);
+            }
         }
 
         lastProcessingTicks = tileEntity.processingTicks;

@@ -1,12 +1,15 @@
 package com.teammetallurgy.metallurgycm.inventory;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotFurnace;
 
+import com.teammetallurgy.metallurgycm.networking.NetworkHandler;
+import com.teammetallurgy.metallurgycm.networking.message.MessageContainerProperties;
 import com.teammetallurgy.metallurgycm.tileentity.TileEntityMetalFurnace;
 
 import cpw.mods.fml.relauncher.Side;
@@ -61,10 +64,14 @@ public class ContainerMetalFurnace extends Container
     {
         super.addCraftingToCrafters(crafter);
 
-        crafter.sendProgressBarUpdate(this, 0, tileEntity.processingTicks);
-        crafter.sendProgressBarUpdate(this, 1, tileEntity.maxProcessingTicks);
-        crafter.sendProgressBarUpdate(this, 2, tileEntity.burningTicks);
-        crafter.sendProgressBarUpdate(this, 3, tileEntity.maxBurningTicks);
+        if (!(crafter instanceof EntityPlayerMP)) { return; }
+
+        EntityPlayerMP player = (EntityPlayerMP) crafter;
+
+        NetworkHandler.CHANNEL.sendTo(new MessageContainerProperties(this.windowId, 0, tileEntity.processingTicks), player);
+        NetworkHandler.CHANNEL.sendTo(new MessageContainerProperties(this.windowId, 1, tileEntity.maxProcessingTicks), player);
+        NetworkHandler.CHANNEL.sendTo(new MessageContainerProperties(this.windowId, 2, tileEntity.burningTicks), player);
+        NetworkHandler.CHANNEL.sendTo(new MessageContainerProperties(this.windowId, 3, tileEntity.maxBurningTicks), player);
     }
 
     @Override
@@ -76,13 +83,32 @@ public class ContainerMetalFurnace extends Container
         {
             ICrafting crafter = (ICrafting) crafters.get(i);
 
-            if (lastProcessingTicks != tileEntity.processingTicks) crafter.sendProgressBarUpdate(this, 0, tileEntity.processingTicks);
+            if (!(crafter instanceof EntityPlayerMP))
+            {
+                continue;
+            }
 
-            if (lastMaxProcessingTicks != tileEntity.maxProcessingTicks) crafter.sendProgressBarUpdate(this, 1, tileEntity.maxProcessingTicks);
+            EntityPlayerMP player = (EntityPlayerMP) crafter;
 
-            if (lastBurningTicks != tileEntity.burningTicks) crafter.sendProgressBarUpdate(this, 2, tileEntity.burningTicks);
+            if (lastProcessingTicks != tileEntity.processingTicks)
+            {
+                NetworkHandler.CHANNEL.sendTo(new MessageContainerProperties(this.windowId, 0, tileEntity.processingTicks), player);
+            }
 
-            if (lastMaxBurningTicks != tileEntity.maxBurningTicks) crafter.sendProgressBarUpdate(this, 3, tileEntity.maxBurningTicks);
+            if (lastMaxProcessingTicks != tileEntity.maxProcessingTicks)
+            {
+                NetworkHandler.CHANNEL.sendTo(new MessageContainerProperties(this.windowId, 1, tileEntity.maxProcessingTicks), player);
+            }
+
+            if (lastBurningTicks != tileEntity.burningTicks)
+            {
+                NetworkHandler.CHANNEL.sendTo(new MessageContainerProperties(this.windowId, 2, tileEntity.burningTicks), player);
+            }
+
+            if (lastMaxBurningTicks != tileEntity.maxBurningTicks)
+            {
+                NetworkHandler.CHANNEL.sendTo(new MessageContainerProperties(this.windowId, 3, tileEntity.maxBurningTicks), player);
+            }
         }
 
         lastProcessingTicks = tileEntity.processingTicks;
