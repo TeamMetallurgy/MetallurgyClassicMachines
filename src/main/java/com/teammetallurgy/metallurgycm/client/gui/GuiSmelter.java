@@ -70,8 +70,8 @@ public class GuiSmelter extends GuiContainer
         if (isMouseInTank)
         {
             ArrayList<String> info = new ArrayList<String>();
-            info.add(StatCollector.translateToLocal("tooltip.metallurgymc.lava.level") + ": " + tileEntity.fluidLevel);
-            info.add(StatCollector.translateToLocal("tooltip.metallurgymc.smelter.capacity") + ": " + tileEntity.maxCapacity);
+            info.add(StatCollector.translateToLocalFormatted("tooltip.metallurgymc.lava.amount", tileEntity.fluidLevel));
+            info.add(StatCollector.translateToLocalFormatted("tooltip.metallurgymc.smelter.capacity", tileEntity.maxCapacity));
             drawHoveringText(info, mouseX, mouseZ, fontRendererObj);
         }
     }
