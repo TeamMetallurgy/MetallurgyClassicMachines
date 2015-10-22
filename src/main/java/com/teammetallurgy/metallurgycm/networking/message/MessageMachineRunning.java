@@ -1,8 +1,8 @@
 package com.teammetallurgy.metallurgycm.networking.message;
 
 import io.netty.buffer.ByteBuf;
+import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 
 import com.teammetallurgy.metallurgycm.tileentity.TileEntitySmelter;
 import com.teammetallurgy.metallurgycm.tileentity.TileEntityStandardMachine;
@@ -66,7 +66,7 @@ public class MessageMachineRunning implements IMessage, IMessageHandler<MessageM
     @Override
     public IMessage onMessage(MessageMachineRunning message, MessageContext ctx)
     {
-        World world = FMLClientHandler.instance().getWorldClient();
+        WorldClient world = FMLClientHandler.instance().getWorldClient();
         TileEntity tileEntity = world.getTileEntity(message.x, message.y, message.z);
 
         if (tileEntity instanceof TileEntityStandardMachine)
