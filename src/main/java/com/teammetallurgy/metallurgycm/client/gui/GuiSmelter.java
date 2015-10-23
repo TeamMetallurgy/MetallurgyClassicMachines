@@ -40,7 +40,7 @@ public class GuiSmelter extends GuiContainer
 
         if (tileEntity.fluidLevel > 0)
         {
-            int scale = tileEntity.getScaledFluidLevel(63);
+            int scale = tileEntity.getScaledFluidLevel(62);
 
             drawTexturedModalRect(guiLeft + 144, guiTop + 10 + 63 - scale, 176, 93 - scale, 16, scale + 1);
         }
