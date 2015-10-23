@@ -13,10 +13,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
 
 import com.teammetallurgy.metallurgycm.MetallurgyCM;
 import com.teammetallurgy.metallurgycm.handler.MetallurgyCMGuiHandler;
-import com.teammetallurgy.metallurgycm.tileentity.TileEntityBaseMachine;
 import com.teammetallurgy.metallurgycm.tileentity.TileEntitySmelter;
 
 import cpw.mods.fml.relauncher.Side;
@@ -120,11 +120,33 @@ public class BlockSmelter extends BlockBaseMachine
 
         TileEntity tileEntity = world.getTileEntity(x, y, z);
 
-        if (!(tileEntity instanceof TileEntityBaseMachine)) return blockIcon;
+        if (!(tileEntity instanceof TileEntitySmelter)) return blockIcon;
 
-        ForgeDirection facingDirection = ((TileEntityBaseMachine) tileEntity).getFacing();
+        FluidTankInfo[] tanksInfo = ((TileEntitySmelter) tileEntity).getTankInfo(((TileEntitySmelter) tileEntity).getFacing());
 
-        if (isFront(side, facingDirection)) return frontIcons[meta][storageLevel];
+        if (tanksInfo[0].capacity > 0)
+        {
+            storageLevel = ((TileEntitySmelter) tileEntity).getScaledFluidLevel(4);
+
+            if ((storageLevel == 0 && ((TileEntitySmelter) tileEntity).fluidLevel > 0) || (storageLevel == 0 && ((TileEntitySmelter) tileEntity).isRunning()))
+            {
+                storageLevel = 1;
+            }
+        }
+
+        ForgeDirection facingDirection = ((TileEntitySmelter) tileEntity).getFacing();
+
+        if (isFront(side, facingDirection))
+        {
+            if (((TileEntitySmelter) tileEntity).isRunning())
+            {
+                return activeIcons[meta][storageLevel];
+            }
+            else
+            {
+                return frontIcons[meta][storageLevel];
+            }
+        }
 
         switch (side)
         {

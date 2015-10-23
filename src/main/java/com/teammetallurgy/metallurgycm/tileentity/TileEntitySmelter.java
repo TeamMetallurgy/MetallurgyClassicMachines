@@ -18,6 +18,7 @@ import net.minecraftforge.fluids.IFluidHandler;
 import com.teammetallurgy.metallurgycm.block.BlockMetalFurnace;
 import com.teammetallurgy.metallurgycm.networking.NetworkHandler;
 import com.teammetallurgy.metallurgycm.networking.message.MessageMachineRunning;
+import com.teammetallurgy.metallurgycm.networking.message.MessageSmelterFluid;
 
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 
@@ -31,6 +32,7 @@ public class TileEntitySmelter extends TileEntityBaseMachine implements ISidedIn
     private int maxBurningTicks;
     public int fluidLevel;
     public int maxCapacity;
+    private int fluidTicks;
 
     private boolean running;
 
@@ -239,6 +241,12 @@ public class TileEntitySmelter extends TileEntityBaseMachine implements ISidedIn
 
         tank.readFromNBT(nbtCompound);
 
+        if (tank != null)
+        {
+            maxCapacity = tank.getCapacity();
+            fluidLevel = tank.getFluidAmount();
+        }
+
     }
 
     @Override
@@ -276,7 +284,6 @@ public class TileEntitySmelter extends TileEntityBaseMachine implements ISidedIn
         boolean requiresUpdate = false;
         maxProcessingTicks = 200;
         maxCapacity = tank.getCapacity();
-        fluidLevel = tank.getFluidAmount();
 
         if (burning)
         {
@@ -329,6 +336,21 @@ public class TileEntitySmelter extends TileEntityBaseMachine implements ISidedIn
             TargetPoint point = new TargetPoint(this.worldObj.provider.dimensionId, this.xCoord, this.yCoord, this.zCoord, 64.0D);
             NetworkHandler.CHANNEL.sendToAllAround(new MessageMachineRunning(this), point);
         }
+
+        if (fluidTicks <= 0)
+        {
+            fluidTicks = 20;
+
+            if (fluidLevel != tank.getFluidAmount())
+            {
+                fluidLevel = tank.getFluidAmount();
+                TargetPoint point = new TargetPoint(this.worldObj.provider.dimensionId, this.xCoord, this.yCoord, this.zCoord, 64.0D);
+                NetworkHandler.CHANNEL.sendToAllAround(new MessageSmelterFluid(this, fluidLevel), point);
+            }
+
+        }
+
+        fluidTicks--;
 
         if (requiresUpdate) markDirty();
     }
