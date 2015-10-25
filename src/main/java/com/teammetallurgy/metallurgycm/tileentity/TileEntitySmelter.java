@@ -410,17 +410,36 @@ public class TileEntitySmelter extends TileEntityBaseMachine implements ISidedIn
     public int getScaledProcessingTime(int scale)
     {
         int processingDivisor = maxProcessingTicks;
-        if (processingDivisor <= 0) processingDivisor = 1;
+        int displayTicks = processingTicks;
+        if (processingDivisor <= 0)
+        {
+            processingDivisor = 1;
+        }
 
-        return processingTicks * scale / processingDivisor;
+        if (displayTicks > processingDivisor)
+        {
+            displayTicks = processingDivisor;
+        }
+
+        return displayTicks * scale / processingDivisor;
     }
 
     public int getScaledFluidLevel(int scale)
     {
         int fluidDivisor = maxCapacity;
-        if (fluidDivisor <= 0) fluidDivisor = 1;
+        int displayLevel = fluidLevel;
 
-        return fluidLevel * scale / fluidDivisor;
+        if (fluidDivisor <= 0)
+        {
+            fluidDivisor = 1;
+        }
+
+        if (displayLevel > fluidDivisor)
+        {
+            displayLevel = fluidDivisor;
+        }
+
+        return displayLevel * scale / fluidDivisor;
     }
 
 }

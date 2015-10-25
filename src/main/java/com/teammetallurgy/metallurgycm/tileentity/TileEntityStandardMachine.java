@@ -178,17 +178,38 @@ public class TileEntityStandardMachine extends TileEntityBaseMachine implements 
     public int getScaledBurningTicks(int scale)
     {
         int burningDivisor = maxBurningTicks;
-        if (burningDivisor <= 0) burningDivisor = 1;
+        int displayTick = burningTicks;
 
-        return burningTicks * scale / burningDivisor;
+        if (burningDivisor <= 0)
+        {
+            burningDivisor = 1;
+        }
+
+        if (displayTick > burningDivisor)
+        {
+            displayTick = burningDivisor;
+        }
+
+        return displayTick * scale / burningDivisor;
     }
 
     public int getScaledProcessingTime(int scale)
     {
         int processingDivisor = maxProcessingTicks;
-        if (processingDivisor <= 0) processingDivisor = 1;
 
-        return processingTicks * scale / processingDivisor;
+        int displayTicks = processingTicks;
+
+        if (processingDivisor <= 0)
+        {
+            processingDivisor = 1;
+        }
+
+        if (displayTicks > processingDivisor)
+        {
+            displayTicks = processingDivisor;
+        }
+
+        return displayTicks * scale / processingDivisor;
     }
 
     @Override
