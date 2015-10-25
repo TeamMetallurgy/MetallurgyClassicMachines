@@ -5,6 +5,7 @@ import java.util.Random;
 import net.minecraft.entity.item.EntityXPOrb;
 
 import com.teammetallurgy.metallurgycm.crafting.RecipesAbstractor;
+import com.teammetallurgy.metallurgycm.handler.ConfigHandler;
 import com.teammetallurgy.metallurgycm.networking.NetworkHandler;
 import com.teammetallurgy.metallurgycm.networking.message.MessageMachineRunning;
 
@@ -21,7 +22,7 @@ public class TileEntityAbstractor extends TileEntityStandardMachine
 
         boolean burning = burningTicks > 0;
         boolean requiresUpdate = false;
-        maxProcessingTicks = 200;
+        maxProcessingTicks = ConfigHandler.abstractorProcessTicks[getType()];
 
         if (burning)
         {
@@ -36,10 +37,17 @@ public class TileEntityAbstractor extends TileEntityStandardMachine
             {
                 // Try to start burning
 
-                burningTicks = maxBurningTicks = RecipesAbstractor.getCatalystBurning(inventory[0]);
+                int baseBurningTicks = RecipesAbstractor.getCatalystBurning(inventory[0]);
 
-                if (burningTicks > 0)
+                if (baseBurningTicks > 0)
                 {
+                    burningTicks = maxBurningTicks = (int) Math.round((baseBurningTicks * ConfigHandler.abstractorFuelEfficiencyMultipliers[getType()]));
+
+                    if (burningTicks <= 0)
+                    {
+                        burningTicks = maxBurningTicks = 1;
+                    }
+
                     // Consume fuel
                     requiresUpdate = true;
 

@@ -16,6 +16,7 @@ import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 
 import com.teammetallurgy.metallurgycm.block.BlockMetalFurnace;
+import com.teammetallurgy.metallurgycm.handler.ConfigHandler;
 import com.teammetallurgy.metallurgycm.networking.NetworkHandler;
 import com.teammetallurgy.metallurgycm.networking.message.MessageMachineRunning;
 import com.teammetallurgy.metallurgycm.networking.message.MessageSmelterFluid;
@@ -37,6 +38,14 @@ public class TileEntitySmelter extends TileEntityBaseMachine implements ISidedIn
     private boolean running;
 
     private FluidTank tank = new FluidTank(FluidContainerRegistry.BUCKET_VOLUME * 10);
+
+    @Override
+    public void setType(int meta)
+    {
+        super.setType(meta);
+
+        tank = new FluidTank(ConfigHandler.smelterTankCapacities[meta]);
+    }
 
     @Override
     public int getSizeInventory()
@@ -239,13 +248,13 @@ public class TileEntitySmelter extends TileEntityBaseMachine implements ISidedIn
         burningTicks = nbtCompound.getInteger("Burning");
         running = nbtCompound.getBoolean("Running");
 
+        maxCapacity = ConfigHandler.smelterTankCapacities[getType()];
+
+        tank.setCapacity(maxCapacity);
+
         tank.readFromNBT(nbtCompound);
 
-        if (tank != null)
-        {
-            maxCapacity = tank.getCapacity();
-            fluidLevel = tank.getFluidAmount();
-        }
+        fluidLevel = tank.getFluidAmount();
 
     }
 
@@ -282,7 +291,7 @@ public class TileEntitySmelter extends TileEntityBaseMachine implements ISidedIn
 
         boolean burning = burningTicks > 0;
         boolean requiresUpdate = false;
-        maxProcessingTicks = 200;
+        maxProcessingTicks = ConfigHandler.smelterProcessTicks[getType()];
         maxCapacity = tank.getCapacity();
 
         if (burning)
@@ -292,7 +301,8 @@ public class TileEntitySmelter extends TileEntityBaseMachine implements ISidedIn
 
         if (worldObj.isRemote) return;
 
-        if (burningTicks != 0 || inventory[0] != null && tank.getFluidAmount() >= 10)
+        int drainAmount = ConfigHandler.smelterDrainPerProcess[getType()];
+        if (burningTicks != 0 || inventory[0] != null && tank.getFluidAmount() >= drainAmount)
         {
             if (burningTicks == 0 && canProcess())
             {
@@ -305,7 +315,7 @@ public class TileEntitySmelter extends TileEntityBaseMachine implements ISidedIn
                     // Consume fuel
                     requiresUpdate = true;
 
-                    tank.drain(10, true);
+                    tank.drain(drainAmount, true);
                 }
 
             }

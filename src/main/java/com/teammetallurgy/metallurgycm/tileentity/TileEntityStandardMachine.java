@@ -18,6 +18,7 @@ public class TileEntityStandardMachine extends TileEntityBaseMachine implements 
     public int maxProcessingTicks;
     public int burningTicks;
     public int maxBurningTicks;
+    protected double burningTicksMultiplier;
 
     protected boolean running;
 
@@ -206,6 +207,7 @@ public class TileEntityStandardMachine extends TileEntityBaseMachine implements 
 
         processingTicks = nbtCompound.getInteger("Process");
         burningTicks = nbtCompound.getInteger("Burning");
+        maxBurningTicks = nbtCompound.getInteger("MaxBurning");
         running = nbtCompound.getBoolean("Running");
 
     }
@@ -231,6 +233,7 @@ public class TileEntityStandardMachine extends TileEntityBaseMachine implements 
 
         nbtCompound.setInteger("Process", processingTicks);
         nbtCompound.setInteger("Burning", burningTicks);
+        nbtCompound.setInteger("MaxBurning", maxBurningTicks);
         nbtCompound.setBoolean("Running", running);
     }
 

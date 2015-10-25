@@ -4,6 +4,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
 
 import com.teammetallurgy.metallurgycm.crafting.RecipesCrusher;
+import com.teammetallurgy.metallurgycm.handler.ConfigHandler;
 import com.teammetallurgy.metallurgycm.networking.NetworkHandler;
 import com.teammetallurgy.metallurgycm.networking.message.MessageMachineRunning;
 
@@ -19,7 +20,7 @@ public class TileEntityCrusher extends TileEntityStandardMachine
 
         boolean burning = burningTicks > 0;
         boolean requiresUpdate = false;
-        maxProcessingTicks = 200;
+        maxProcessingTicks = ConfigHandler.crusherProcessTicks[getType()];
 
         if (burning)
         {
@@ -34,10 +35,17 @@ public class TileEntityCrusher extends TileEntityStandardMachine
             {
                 // Try to start burning
 
-                burningTicks = maxBurningTicks = TileEntityFurnace.getItemBurnTime(inventory[0]);
+                int baseBurningTicks = TileEntityFurnace.getItemBurnTime(inventory[0]);
 
-                if (burningTicks > 0)
+                if (baseBurningTicks > 0)
                 {
+                    burningTicks = maxBurningTicks = (int) Math.round((baseBurningTicks * ConfigHandler.crusherFuelEfficiencyMultipliers[getType()]));
+
+                    if (burningTicks <= 0)
+                    {
+                        burningTicks = maxBurningTicks = 1;
+                    }
+
                     // Consume fuel
                     requiresUpdate = true;
 
