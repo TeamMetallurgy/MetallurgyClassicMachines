@@ -37,9 +37,9 @@ public class MetallurgyCM
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
+        LogHandler.setLogger(event.getModLog());
         ConfigHandler.setConfig(new Configuration(event.getSuggestedConfigurationFile()));
         ConfigHandler.loadConfig();
-        LogHandler.setLogger(event.getModLog());
 
         creativeTab = new MetallurgyCMTab();
 
