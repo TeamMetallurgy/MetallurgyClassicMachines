@@ -20,4 +20,9 @@ public class LogHandler
     {
         log.trace(message);
     }
+
+    public static void warning(String message)
+    {
+        log.warn(message);
+    }
 }
