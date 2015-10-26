@@ -1,9 +1,13 @@
 package com.teammetallurgy.metallurgycm;
 
+import java.util.ArrayList;
+
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
+import com.teammetallurgy.metallurgycm.crafting.RecipesCrusher;
 import com.teammetallurgy.metallurgycm.handler.ConfigHandler;
 
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -95,6 +99,47 @@ public class MetallurgyCMRecipes
                 ItemStack previousSmelter = new ItemStack(MetallurgyCMBlocks.abstractor, 1, i - 1);
                 GameRegistry.addRecipe(new ShapedOreRecipe(smelterStack, "iii", "ipi", "iii", 'i', ingotName, 'p', previousSmelter));
             }
+        }
+    }
+
+    public static void initMachineRecipes()
+    {
+        crusherRecipes();
+    }
+
+    private static void crusherRecipes()
+    {
+        String[] dictionaryNames = OreDictionary.getOreNames();
+
+        for (String dustName : dictionaryNames)
+        {
+            if (!dustName.startsWith("dust"))
+            {
+                continue;
+            }
+
+            ArrayList<ItemStack> dustStacks = OreDictionary.getOres(dustName);
+            if (dustStacks.size() <= 0)
+            {
+                continue;
+            }
+
+            String resourceName = dustName.substring(4);
+            String ingotName = "ingot" + resourceName;
+            if (OreDictionary.doesOreNameExist(ingotName))
+            {
+                ItemStack result = dustStacks.get(0).copy();
+                RecipesCrusher.addOreDicRecipe(ingotName, result, 0.7f);
+            }
+
+            String oreName = "ore" + resourceName;
+            if (OreDictionary.doesOreNameExist(oreName))
+            {
+                ItemStack result = dustStacks.get(0).copy();
+                result.stackSize = 2;
+                RecipesCrusher.addOreDicRecipe(oreName, result, 1.0f);
+            }
+
         }
     }
 }

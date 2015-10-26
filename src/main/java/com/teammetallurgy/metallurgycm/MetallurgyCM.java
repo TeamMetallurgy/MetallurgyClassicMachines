@@ -64,7 +64,7 @@ public class MetallurgyCM
     @EventHandler
     public void postInit(FMLPostInitializationEvent event)
     {
-
+        MetallurgyCMRecipes.initMachineRecipes();
     }
 
 }
