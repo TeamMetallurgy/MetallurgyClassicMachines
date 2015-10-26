@@ -3,10 +3,13 @@ package com.teammetallurgy.metallurgycm;
 import java.util.ArrayList;
 
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
+import com.teammetallurgy.metallurgycm.crafting.RecipeGeneratorAbstractor;
+import com.teammetallurgy.metallurgycm.crafting.RecipesAbstractor;
 import com.teammetallurgy.metallurgycm.crafting.RecipesCrusher;
 import com.teammetallurgy.metallurgycm.handler.ConfigHandler;
 
@@ -104,7 +107,22 @@ public class MetallurgyCMRecipes
 
     public static void initMachineRecipes()
     {
+        abstractorRecipes();
         crusherRecipes();
+    }
+
+    private static void abstractorRecipes()
+    {
+        RecipeGeneratorAbstractor.init();
+
+        // Adding Catalysts
+        ItemStack lapis = new ItemStack(Items.dye, 1, 4);
+        RecipesAbstractor.addCatalyst(lapis, 300);
+
+        RecipesAbstractor.addOreDicCatalyst("dustPrometheum", 1600);
+        RecipesAbstractor.addOreDicCatalyst("dustAstralSilver", 2400);
+        RecipesAbstractor.addOreDicCatalyst("dustCarmot", 3600);
+
     }
 
     private static void crusherRecipes()

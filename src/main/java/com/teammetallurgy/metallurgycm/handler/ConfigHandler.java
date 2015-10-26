@@ -13,6 +13,7 @@ public class ConfigHandler
     public static double[] abstractorSpeedMultipliers = { 0.5, 1.0, 1.3, 1.5, 1.7, 2.0, 2.2, 2.4, 2.6, 2.8, 3.0 };
     public static int[] abstractorProcessTicks = new int[abstractorSpeedMultipliers.length];
     public static double[] abstractorFuelEfficiencyMultipliers = { 3.0, 2.8, 2.6, 2.4, 2.2, 2.0, 1.7, 1.5, 1.3, 1.0, 0.5 };
+    public static boolean abstractorGenVerboseLog = false;
 
     public static final String[] chestsTypes = { "Brass", "Silver", "Gold", "Electrum", "Platinum" };
 
@@ -44,6 +45,7 @@ public class ConfigHandler
 
         multipleConfigs("abstractor.speed_multipliers", abstractorTypes, abstractorSpeedMultipliers, "Speed Multiplier for %s Abstractor", 0.1D, 10.0D);
         multipleConfigs("abstractor.fuel_efficiency_multipliers", abstractorTypes, abstractorFuelEfficiencyMultipliers, "Fuel Efficiency Multiplier for %s Abstractor", 0.1D, 10.0D);
+        ConfigHandler.abstractorGenVerboseLog = config.getBoolean("verbose_log", "abstractor.general", ConfigHandler.abstractorGenVerboseLog, "Verbose log for Abstractor Recipe Generator");
 
         multipleConfigs("crusher.speed_multipliers", crusherTypes, crusherSpeedMultipliers, "Speed Multiplier for %s Crusher", 0.1D, 10.0D);
         multipleConfigs("crusher.fuel_efficiency_multipliers", crusherTypes, crusherFuelEfficiencyMultipliers, "Fuel Efficiency Multiplier for %s Crusher", 0.1D, 10.0D);
