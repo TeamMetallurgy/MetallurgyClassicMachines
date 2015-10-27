@@ -1,20 +1,28 @@
 package com.teammetallurgy.metallurgycm.tileentity;
 
+import java.util.List;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.AxisAlignedBB;
 
 import com.teammetallurgy.metallurgycm.block.BlockMetalChest;
+import com.teammetallurgy.metallurgycm.inventory.ContainerMetalChest;
 
 public class TileEntityMetalChest extends TileEntityBaseMachine implements IInventory
 {
     private ItemStack[] inventory;
     private int currentUsersCount;
+    public float lidOpenRatio;
+    public float lidPreviousOpenRatio;
 
     private int[] sizes = { 54, 72, 81, 90, 108 };
     private int size = sizes[0];
+
+    private int syncTicks;
 
     public void setInvSize(int meta)
     {
@@ -122,16 +130,23 @@ public class TileEntityMetalChest extends TileEntityBaseMachine implements IInve
 
         currentUsersCount++;
 
-        // TODO Networking Sync
+        worldObj.addBlockEvent(xCoord, yCoord, zCoord, getBlockType(), 1, currentUsersCount);
+        worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, getBlockType());
+        worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord - 1, zCoord, getBlockType());
 
     }
 
     @Override
     public void closeInventory()
     {
-        currentUsersCount--;
+        if (getBlockType() instanceof BlockMetalChest)
+        {
+            currentUsersCount--;
 
-        // TODO Networking Sync
+            worldObj.addBlockEvent(xCoord, yCoord, zCoord, getBlockType(), 1, currentUsersCount);
+            worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, getBlockType());
+            worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord - 1, zCoord, getBlockType());
+        }
 
     }
 
@@ -139,6 +154,18 @@ public class TileEntityMetalChest extends TileEntityBaseMachine implements IInve
     public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_)
     {
         return true;
+    }
+
+    @Override
+    public boolean receiveClientEvent(int eventId, int value)
+    {
+        if (eventId == 1)
+        {
+            currentUsersCount = value;
+            return true;
+        }
+
+        return super.receiveClientEvent(eventId, value);
     }
 
     @Override
@@ -185,4 +212,77 @@ public class TileEntityMetalChest extends TileEntityBaseMachine implements IInve
         nbtCompound.setTag("Items", nbtList);
     }
 
+    @Override
+    @SuppressWarnings("rawtypes")
+    public void updateEntity()
+    {
+        super.updateEntity();
+
+        syncTicks++;
+
+        if (!worldObj.isRemote && currentUsersCount != 0 && (syncTicks + xCoord + yCoord + zCoord) % 200 == 0)
+        {
+            currentUsersCount = 0;
+            double range = 5.0D;
+
+            AxisAlignedBB boundingBox = AxisAlignedBB.getBoundingBox(xCoord - range, yCoord - range, zCoord - range, xCoord + range + 1, yCoord + range + 1, zCoord + range + 1);
+            List playerList = worldObj.getEntitiesWithinAABB(EntityPlayer.class, boundingBox);
+
+            for (Object entry : playerList)
+            {
+                EntityPlayer player = (EntityPlayer) entry;
+
+                if (!(player.openContainer instanceof ContainerMetalChest))
+                {
+                    continue;
+                }
+
+                TileEntityMetalChest containerTileEntity = ((ContainerMetalChest) player.openContainer).getTileEntity();
+                if (this == containerTileEntity)
+                {
+                    currentUsersCount++;
+                }
+            }
+
+        }
+
+        lidPreviousOpenRatio = lidOpenRatio;
+        float step = 0.1F;
+
+        if (currentUsersCount > 0 && lidOpenRatio == 0)
+        {
+            worldObj.playSoundEffect(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D, "random.chestopen", 0.5F, worldObj.rand.nextFloat() * 0.12F + 0.83F);
+        }
+
+        if ((currentUsersCount <= 0 && lidOpenRatio > 0.0D) || (currentUsersCount > 0 && lidOpenRatio < 1.0D))
+        {
+            if (currentUsersCount > 0)
+            {
+                lidOpenRatio += step;
+            }
+            else
+            {
+                lidOpenRatio -= step;
+            }
+
+            if (lidOpenRatio > 1.0F)
+            {
+                lidOpenRatio = 1.0F;
+            }
+
+            if (lidOpenRatio < 0)
+            {
+                lidOpenRatio = 0;
+            }
+
+            float halfOpen = 0.5F;
+
+            if (lidOpenRatio < halfOpen && lidPreviousOpenRatio >= halfOpen)
+            {
+                worldObj.playSoundEffect(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D, "random.chestclosed", 0.5F, worldObj.rand.nextFloat() * 0.12F + 0.83F);
+            }
+
+        }
+
+    }
 }

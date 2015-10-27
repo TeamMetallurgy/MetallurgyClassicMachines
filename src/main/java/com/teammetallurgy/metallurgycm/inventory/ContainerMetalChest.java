@@ -28,6 +28,8 @@ public class ContainerMetalChest extends Container
 
         if (meta < 0 || meta >= guiRows.length) return;
 
+        tileEntity.openInventory();
+
         int x = 0;
         int y = 0;
 
@@ -102,5 +104,17 @@ public class ContainerMetalChest extends Container
         slot.onPickupFromSlot(player, slotStack);
 
         return transferedStack;
+    }
+
+    @Override
+    public void onContainerClosed(EntityPlayer player)
+    {
+        super.onContainerClosed(player);
+        tileEntity.closeInventory();
+    }
+
+    public TileEntityMetalChest getTileEntity()
+    {
+        return tileEntity;
     }
 }

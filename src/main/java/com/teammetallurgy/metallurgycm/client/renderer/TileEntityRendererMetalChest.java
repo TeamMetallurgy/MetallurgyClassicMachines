@@ -58,6 +58,15 @@ public class TileEntityRendererMetalChest extends TileEntitySpecialRenderer
         GL11.glRotatef(180.0F, 1.0F, 0.0F, 0F);
         GL11.glRotatef(angle, 0.0F, 1.0F, 0.0F);
 
+        float lidPrev = tileEntityMetalChest.lidPreviousOpenRatio;
+        float lidCurrent = tileEntityMetalChest.lidOpenRatio;
+        float lidRotationAngleX = lidPrev + (lidCurrent - lidPrev) * renderTicks;
+
+        lidRotationAngleX = 1.0F - lidRotationAngleX;
+        lidRotationAngleX = 1.0F - lidRotationAngleX * lidRotationAngleX * lidRotationAngleX;
+        lidRotationAngleX *= Math.PI;
+        modelChest.chestLid.rotateAngleX = -(lidRotationAngleX / 2.0F);
+
         bindChestTexture(tileEntityMetalChest.getBlockMetadata());
         modelChest.renderAll();
         GL11.glPopMatrix();
