@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
 
 import com.teammetallurgy.metallurgycm.tileentity.TileEntityMetalChest;
 
@@ -61,4 +62,45 @@ public class ContainerMetalChest extends Container
         return true;
     }
 
+    @Override
+    public ItemStack transferStackInSlot(EntityPlayer player, int sourceSlotId)
+    {
+        ItemStack transferedStack = null;
+
+        Slot slot = getSlot(sourceSlotId);
+
+        if (slot == null || !slot.getHasStack()) { return null; }
+
+        ItemStack slotStack = slot.getStack();
+        transferedStack = slotStack.copy();
+
+        int inventorySize = tileEntity.getSizeInventory();
+        int playerInvenotyLimit = inventorySize + 36;
+
+        if (sourceSlotId >= 0 && sourceSlotId < inventorySize)
+        {
+            // source slot Chest inventory
+            if (!mergeItemStack(slotStack, inventorySize, playerInvenotyLimit, true)) { return null; }
+        }
+        else
+        {
+            // source slot player inventor
+            if (!mergeItemStack(slotStack, 0, inventorySize, false)) { return null; }
+        }
+
+        if (slotStack.stackSize <= 0)
+        {
+            slot.putStack(null);
+        }
+        else
+        {
+            slot.onSlotChanged();
+        }
+
+        if (transferedStack.stackSize == slotStack.stackSize) { return null; }
+
+        slot.onPickupFromSlot(player, slotStack);
+
+        return transferedStack;
+    }
 }

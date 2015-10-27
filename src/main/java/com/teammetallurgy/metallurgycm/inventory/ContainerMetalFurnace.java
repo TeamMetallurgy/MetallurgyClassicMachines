@@ -7,6 +7,9 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotFurnace;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
+import net.minecraft.tileentity.TileEntityFurnace;
 
 import com.teammetallurgy.metallurgycm.networking.NetworkHandler;
 import com.teammetallurgy.metallurgycm.networking.message.MessageContainerProperties;
@@ -57,6 +60,66 @@ public class ContainerMetalFurnace extends Container
     public boolean canInteractWith(EntityPlayer player)
     {
         return true;
+    }
+
+    // Shfit-click handling
+    @Override
+    public ItemStack transferStackInSlot(EntityPlayer player, int sourceSlotId)
+    {
+        ItemStack transferedItemStack = null;
+        Slot slot = this.getSlot(sourceSlotId);
+
+        if (slot == null || !slot.getHasStack()) { return transferedItemStack; }
+
+        ItemStack slotStack = slot.getStack();
+        transferedItemStack = slotStack.copy();
+
+        if (sourceSlotId == 2)
+        {
+            // source is output slot
+            if (!mergeItemStack(slotStack, 3, 39, true)) { return null; }
+
+            slot.onSlotChange(slotStack, transferedItemStack);
+        }
+        else if (sourceSlotId != 0 && sourceSlotId != 1)
+        {
+            // source is player inventory
+            if (FurnaceRecipes.smelting().getSmeltingResult(slotStack) != null)
+            {
+                if (!mergeItemStack(slotStack, 1, 2, false)) { return null; }
+            }
+            else if (TileEntityFurnace.getItemBurnTime(slotStack) > 0)
+            {
+                if (!mergeItemStack(slotStack, 0, 1, false)) { return null; }
+            }
+            else if (sourceSlotId >= 3 && sourceSlotId < 30)
+            {
+                // source is from player non-hotbar slots
+                if (!mergeItemStack(slotStack, 30, 39, false)) { return null; }
+            }
+            else if (sourceSlotId >= 30 && sourceSlotId < 39)
+            {
+                // source is from player hotbar slots
+                if (!mergeItemStack(slotStack, 3, 30, false)) { return null; }
+            }
+
+        }
+        else if (!mergeItemStack(slotStack, 3, 39, false)) { return null; }
+
+        if (slotStack.stackSize <= 0)
+        {
+            slot.putStack(null);
+        }
+        else
+        {
+            slot.onSlotChanged();
+        }
+
+        if (transferedItemStack.stackSize == slotStack.stackSize) { return null; }
+
+        slot.onPickupFromSlot(player, slotStack);
+
+        return transferedItemStack;
     }
 
     @Override
