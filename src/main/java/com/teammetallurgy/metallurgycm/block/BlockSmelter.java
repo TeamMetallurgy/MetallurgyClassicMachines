@@ -3,6 +3,7 @@ package com.teammetallurgy.metallurgycm.block;
 import java.util.Locale;
 import java.util.Random;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -75,6 +76,24 @@ public class BlockSmelter extends BlockBaseMachine
         // Open GUI
         player.openGui(MetallurgyCM.MOD_ID, MetallurgyCMGuiHandler.SMELTER_ID, world, x, y, z);
         return true;
+    }
+
+    @Override
+    public int getLightValue(IBlockAccess world, int x, int y, int z)
+    {
+        Block block = world.getBlock(x, y, z);
+        if (block != this)
+        {
+            block.getLightValue(world, x, y, z);
+        }
+
+        TileEntity tileEntity = world.getTileEntity(x, y, z);
+
+        if (!(tileEntity instanceof TileEntitySmelter)) { return 0; }
+
+        if (!((TileEntitySmelter) tileEntity).isRunning()) { return 0; }
+        // Same as the furnace
+        return 13;
     }
 
     @Override

@@ -345,6 +345,7 @@ public class TileEntitySmelter extends TileEntityBaseMachine implements ISidedIn
             setRunning(currentlyBurning());
             TargetPoint point = new TargetPoint(this.worldObj.provider.dimensionId, this.xCoord, this.yCoord, this.zCoord, 64.0D);
             NetworkHandler.CHANNEL.sendToAllAround(new MessageMachineRunning(this), point);
+            updateLighting();
         }
 
         if (fluidTicks <= 0)

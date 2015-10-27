@@ -3,6 +3,7 @@ package com.teammetallurgy.metallurgycm.block;
 import java.util.Locale;
 import java.util.Random;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -41,6 +42,24 @@ public class BlockMetalFurnace extends BlockBaseMachine
     {
         player.openGui(MetallurgyCM.MOD_ID, MetallurgyCMGuiHandler.METAL_FURNACE_ID, world, x, y, z);
         return true;
+    }
+
+    @Override
+    public int getLightValue(IBlockAccess world, int x, int y, int z)
+    {
+        Block block = world.getBlock(x, y, z);
+        if (block != this)
+        {
+            block.getLightValue(world, x, y, z);
+        }
+
+        TileEntity tileEntity = world.getTileEntity(x, y, z);
+
+        if (!(tileEntity instanceof TileEntityMetalFurnace)) { return 0; }
+
+        if (!((TileEntityMetalFurnace) tileEntity).isRunning()) { return 0; }
+        // Same as the furnace
+        return 13;
     }
 
     @Override

@@ -70,4 +70,10 @@ public class TileEntityBaseMachine extends TileEntity
         S35PacketUpdateTileEntity packet = new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, nbtCompound);
         return packet;
     }
+
+    protected void updateLighting()
+    {
+        worldObj.func_147451_t(xCoord, yCoord, zCoord);
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+    }
 }
