@@ -15,7 +15,7 @@ public class ContainerMetalChest extends Container
     private int[] guiSizeX = { 184, 184, 184, 202, 238 };
     private int[] guiSizeY = { 202, 238, 256, 256, 256 };
     private int[] guiRows = { 6, 8, 9, 9, 9 };
-    private int[] guiColumns = { 9, 9, 9, 10, 11 };
+    private int[] guiColumns = { 9, 9, 9, 10, 12 };
     private static final int INV_OFFSET_X = 12;
     private static final int INV_OFFSET_Y = 8;
     private int[] playerInvOffsetX = { 12, 12, 12, 21, 39 };
