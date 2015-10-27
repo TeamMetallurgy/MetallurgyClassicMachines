@@ -88,13 +88,19 @@ public class RecipeGeneratorAbstractor
                         }
                         else
                         {
-                            LogHandler.warning("Invaild Enchantability detected, skipping adding recipe for " + toolMaterial.toString());
+                            if (ConfigHandler.abstractorInvaildLog)
+                            {
+                                LogHandler.warning("Invaild Enchantability detected, skipping adding recipe for " + toolMaterial.toString());
+                            }
                         }
 
                     }
                     else
                     {
-                        LogHandler.warning("Invaild Item detected, Skipping adding recipe for " + toolMaterial.toString());
+                        if (ConfigHandler.abstractorInvaildLog)
+                        {
+                            LogHandler.warning("Invaild Item detected, Skipping adding recipe for " + toolMaterial.toString());
+                        }
                     }
                 }
                 continue;
@@ -143,13 +149,19 @@ public class RecipeGeneratorAbstractor
                         }
                         else
                         {
-                            LogHandler.warning("Invaild Enchantability detected, skipping adding recipe for " + toolMaterial.toString());
+                            if (ConfigHandler.abstractorInvaildLog)
+                            {
+                                LogHandler.warning("Invaild Enchantability detected, skipping adding recipe for " + toolMaterial.toString());
+                            }
                         }
 
                     }
                     else
                     {
-                        LogHandler.warning("Invaild Item detected, Skipping adding recipe for " + toolMaterial.toString());
+                        if (ConfigHandler.abstractorInvaildLog)
+                        {
+                            LogHandler.warning("Invaild Item detected, Skipping adding recipe for " + toolMaterial.toString());
+                        }
                     }
                 }
                 continue;
@@ -198,13 +210,19 @@ public class RecipeGeneratorAbstractor
                         }
                         else
                         {
-                            LogHandler.warning("Invaild Enchantability detected, skipping adding recipe for " + armorMaterial.toString());
+                            if (ConfigHandler.abstractorInvaildLog)
+                            {
+                                LogHandler.warning("Invaild Enchantability detected, skipping adding recipe for " + armorMaterial.toString());
+                            }
                         }
 
                     }
                     else
                     {
-                        LogHandler.warning("Invaild Item detected, Skipping adding recipe for " + armorMaterial.toString());
+                        if (ConfigHandler.abstractorInvaildLog)
+                        {
+                            LogHandler.warning("Invaild Item detected, Skipping adding recipe for " + armorMaterial.toString());
+                        }
                     }
                 }
                 continue;
