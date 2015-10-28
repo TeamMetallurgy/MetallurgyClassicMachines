@@ -1,6 +1,7 @@
 package com.teammetallurgy.metallurgycm.integration.nei;
 
 import java.awt.Rectangle;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -8,7 +9,6 @@ import java.util.Map.Entry;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
-import scala.actors.threadpool.Arrays;
 import codechicken.nei.NEIClientUtils;
 import codechicken.nei.NEIServerUtils;
 import codechicken.nei.PositionedStack;
