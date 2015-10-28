@@ -2,6 +2,7 @@ package com.teammetallurgy.metallurgycm.integration.nei;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -69,7 +70,7 @@ public class AbstractorRecipeHandler extends TemplateRecipeHandler
             if (NEIServerUtils.areStacksSameType(recipe.getKey(), ingredient))
             {
                 AbstractingPair abstractingPair = new AbstractingPair(recipe.getKey(), recipe.getValue());
-                abstractingPair.setIngredientPermutation(abstractingPair.ingredient, ingredient);
+                abstractingPair.setIngredientPermutation(Arrays.asList(abstractingPair.ingredient), ingredient);
                 arecipes.add(abstractingPair);
             }
         }
@@ -84,7 +85,7 @@ public class AbstractorRecipeHandler extends TemplateRecipeHandler
                 if (NEIServerUtils.areStacksSameType(recipeIngredient, ingredient))
                 {
                     AbstractingPair abstractingPair = new AbstractingPair(recipe.getKey(), recipe.getValue());
-                    abstractingPair.setIngredientPermutation(abstractingPair.ingredient, ingredient);
+                    abstractingPair.setIngredientPermutation(Arrays.asList(abstractingPair.ingredient), ingredient);
                     arecipes.add(abstractingPair);
                 }
             }
@@ -158,29 +159,26 @@ public class AbstractorRecipeHandler extends TemplateRecipeHandler
 
     public class AbstractingPair extends CachedRecipe
     {
-        ArrayList<PositionedStack> ingredient = new ArrayList<PositionedStack>();
+        PositionedStack ingredient;
         int result;
 
         public AbstractingPair(ItemStack ingredient, int result)
         {
-            this.ingredient.add(new PositionedStack(ingredient, 51, 6));
+            this.ingredient = new PositionedStack(ingredient, 51, 6);
             this.result = result;
         }
 
         public AbstractingPair(ArrayList<ItemStack> ingredients, int result)
         {
-            for (ItemStack ingredient : ingredients)
-            {
-                this.ingredient.add(new PositionedStack(ingredient, 51, 6));
-            }
 
+            this.ingredient = new PositionedStack(ingredients, 51, 6);
             this.result = result;
         }
 
         @Override
         public List<PositionedStack> getIngredients()
         {
-            return getCycledIngredients(cycleticks / 48, ingredient);
+            return getCycledIngredients(cycleticks / 48, Arrays.asList(ingredient));
         }
 
         @Override
@@ -190,31 +188,27 @@ public class AbstractorRecipeHandler extends TemplateRecipeHandler
         }
 
         @Override
-        public List<PositionedStack> getOtherStacks()
+        public PositionedStack getOtherStack()
         {
-            return aCatalysts.get((cycleticks / 48) % aCatalysts.size()).ingredients;
+            return aCatalysts.get((cycleticks / 48) % aCatalysts.size()).ingredient;
         }
 
     }
 
     public static class CatalystPair
     {
-        public ArrayList<PositionedStack> ingredients = new ArrayList<PositionedStack>();
+        public PositionedStack ingredient;
         public int burnTime;
 
         public CatalystPair(ItemStack ingredient, int burnTime)
         {
-            this.ingredients.add(new PositionedStack(ingredient, 51, 42, false));
+            this.ingredient = new PositionedStack(ingredient, 51, 42);
             this.burnTime = burnTime;
         }
 
         public CatalystPair(ArrayList<ItemStack> ingredients, int burnTime)
         {
-            for (ItemStack ingredient : ingredients)
-            {
-                this.ingredients.add(new PositionedStack(ingredient, 51, 42, false));
-            }
-
+            this.ingredient = new PositionedStack(ingredients, 51, 42);
             this.burnTime = burnTime;
 
         }

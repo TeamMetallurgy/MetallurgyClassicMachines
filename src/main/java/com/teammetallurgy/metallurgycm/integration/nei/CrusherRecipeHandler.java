@@ -2,6 +2,7 @@ package com.teammetallurgy.metallurgycm.integration.nei;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -77,7 +78,7 @@ public class CrusherRecipeHandler extends TemplateRecipeHandler
             if (NEIServerUtils.areStacksSameType(recipe.getKey(), ingredient))
             {
                 CrushingPair crushingPair = new CrushingPair(recipe.getKey(), recipe.getValue());
-                crushingPair.setIngredientPermutation(crushingPair.ingredient, ingredient);
+                crushingPair.setIngredientPermutation(Arrays.asList(crushingPair.ingredient), ingredient);
                 arecipes.add(crushingPair);
             }
         }
@@ -92,7 +93,7 @@ public class CrusherRecipeHandler extends TemplateRecipeHandler
                 if (NEIServerUtils.areStacksSameType(recipeIngredient, ingredient))
                 {
                     CrushingPair crushingPair = new CrushingPair(recipe.getKey(), recipe.getValue());
-                    crushingPair.setIngredientPermutation(crushingPair.ingredient, ingredient);
+                    crushingPair.setIngredientPermutation(Arrays.asList(crushingPair.ingredient), ingredient);
                     arecipes.add(crushingPair);
                 }
             }
@@ -139,29 +140,25 @@ public class CrusherRecipeHandler extends TemplateRecipeHandler
 
     public class CrushingPair extends CachedRecipe
     {
-        ArrayList<PositionedStack> ingredient = new ArrayList<PositionedStack>();
+        PositionedStack ingredient;
         PositionedStack result;
 
         public CrushingPair(ItemStack ingredient, ItemStack result)
         {
-            this.ingredient.add(new PositionedStack(ingredient, 51, 6));
+            this.ingredient = new PositionedStack(ingredient, 51, 6);
             this.result = new PositionedStack(result, 111, 24);
         }
 
         public CrushingPair(ArrayList<ItemStack> ingredients, ItemStack result)
         {
-            for (ItemStack ingredient : ingredients)
-            {
-                this.ingredient.add(new PositionedStack(ingredient, 51, 6));
-            }
-
+            this.ingredient = new PositionedStack(ingredients, 51, 6);
             this.result = new PositionedStack(result, 111, 24);
         }
 
         @Override
         public List<PositionedStack> getIngredients()
         {
-            return getCycledIngredients(cycleticks / 48, ingredient);
+            return getCycledIngredients(cycleticks / 48, Arrays.asList(ingredient));
         }
 
         @Override

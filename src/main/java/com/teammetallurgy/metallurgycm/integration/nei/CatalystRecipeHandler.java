@@ -1,6 +1,7 @@
 package com.teammetallurgy.metallurgycm.integration.nei;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -55,12 +56,9 @@ public class CatalystRecipeHandler extends AbstractorRecipeHandler
     {
         for (CatalystPair catalyst : aCatalysts)
         {
-            for (PositionedStack pairIngredient : catalyst.ingredients)
+            if (catalyst.ingredient.contains(ingredient))
             {
-                if (pairIngredient.contains(ingredient))
-                {
-                    arecipes.add(new RecipeCatalystPair(catalyst));
-                }
+                arecipes.add(new RecipeCatalystPair(catalyst));
             }
         }
     }
@@ -91,7 +89,7 @@ public class CatalystRecipeHandler extends AbstractorRecipeHandler
         public PositionedStack getIngredient()
         {
             AbstractingPair recipe = allAbstractingRecipes.get(cycleticks / 48 % allAbstractingRecipes.size());
-            return recipe.ingredient.get(cycleticks / 48 % recipe.ingredient.size());
+            return recipe.ingredient;
         }
 
         @Override
@@ -103,7 +101,7 @@ public class CatalystRecipeHandler extends AbstractorRecipeHandler
         @Override
         public List<PositionedStack> getOtherStacks()
         {
-            return this.catatlystPair.ingredients;
+            return getCycledIngredients(cycleticks / 48, Arrays.asList(catatlystPair.ingredient));
         }
 
     }
