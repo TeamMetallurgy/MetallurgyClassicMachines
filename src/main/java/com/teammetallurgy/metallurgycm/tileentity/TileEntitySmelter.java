@@ -164,7 +164,13 @@ public class TileEntitySmelter extends TileEntityBaseMachine implements ISidedIn
     @Override
     public int[] getAccessibleSlotsFromSide(int side)
     {
-        return null;
+        switch (side)
+        {
+            case 0:
+                return new int[] { 1 };
+            default:
+                return new int[] { 0 };
+        }
     }
 
     @Override
@@ -176,7 +182,7 @@ public class TileEntitySmelter extends TileEntityBaseMachine implements ISidedIn
     @Override
     public boolean canExtractItem(int slot, ItemStack stack, int side)
     {
-        if (slot == 1 && side == 1) return true;
+        if (slot == 1 && side == 0) return true;
 
         return false;
 

@@ -3,6 +3,7 @@ package com.teammetallurgy.metallurgycm.tileentity;
 import java.util.Random;
 
 import net.minecraft.entity.item.EntityXPOrb;
+import net.minecraft.item.ItemStack;
 
 import com.teammetallurgy.metallurgycm.crafting.RecipesAbstractor;
 import com.teammetallurgy.metallurgycm.handler.ConfigHandler;
@@ -14,6 +15,20 @@ import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 public class TileEntityAbstractor extends TileEntityStandardMachine
 {
     private static Random RAND = new Random();
+
+    @Override
+    public boolean isItemValidForSlot(int slot, ItemStack stack)
+    {
+        switch (slot)
+        {
+            case 0: // fuel
+                return RecipesAbstractor.getCatalystBurning(stack) > 0;
+            case 1: // input
+                return true;
+            default: // output and errored
+                return false;
+        }
+    }
 
     @Override
     public void updateEntity()

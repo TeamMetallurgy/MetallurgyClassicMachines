@@ -141,7 +141,15 @@ public class TileEntityStandardMachine extends TileEntityBaseMachine implements 
     @Override
     public int[] getAccessibleSlotsFromSide(int side)
     {
-        return null;
+        switch (side)
+        {
+            case 0:
+                return new int[] { 2 };
+            case 1:
+                return new int[] { 1 };
+            default:
+                return new int[] { 0 };
+        }
     }
 
     @Override
@@ -153,7 +161,7 @@ public class TileEntityStandardMachine extends TileEntityBaseMachine implements 
     @Override
     public boolean canExtractItem(int slot, ItemStack stack, int side)
     {
-        if (slot == 2 && side == 1) return true;
+        if (slot == 2 && side == 0) return true;
         if (slot == 0 && stack.getItem() == Items.bucket) return true;
 
         return false;
