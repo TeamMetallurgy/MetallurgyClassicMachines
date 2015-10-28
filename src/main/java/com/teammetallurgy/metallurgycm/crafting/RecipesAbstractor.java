@@ -109,4 +109,23 @@ public class RecipesAbstractor
 
     }
 
+    public static HashMap<ItemStack, Integer> getAbstractingRecipes()
+    {
+        return INSTANCE.inputBaseEssences;
+    }
+
+    public static HashMap<ArrayList<ItemStack>, Integer> getOreDicAbstractingRecipes()
+    {
+        return INSTANCE.oreDicBaseEsssences;
+    }
+
+    public static HashMap<ItemStack, Integer> getCatalystBurningRecipes()
+    {
+        return INSTANCE.catalystBurning;
+    }
+
+    public static HashMap<ArrayList<ItemStack>, Integer> getOreDicCatalystBurningRecipes()
+    {
+        return INSTANCE.oreDicBurning;
+    }
 }

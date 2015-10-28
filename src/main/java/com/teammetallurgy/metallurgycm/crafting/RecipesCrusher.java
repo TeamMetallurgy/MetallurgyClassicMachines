@@ -87,4 +87,14 @@ public class RecipesCrusher
         return experiance;
     }
 
+    public static HashMap<ItemStack, ItemStack> getCrushingRecipes()
+    {
+        return INSTANCE.crushedMaterials;
+    }
+
+    public static HashMap<ArrayList<ItemStack>, ItemStack> getOreDicCrushingRecipes()
+    {
+        return INSTANCE.oreDicCrushedMaterials;
+    }
+
 }
