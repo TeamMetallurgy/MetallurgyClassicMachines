@@ -1,5 +1,8 @@
 itemGroup.metallurgycm=Metallurgy Classic Machines
 
+tooltip.metallurgymc.lava.amount=Количество лавы: %s мВ
+tooltip.metallurgymc.smelter.capacity=Ёмкость: %s мВ
+
 container.metallurgycm.abstractor.adamantine=Адамантиевый абстрактор
 container.metallurgycm.abstractor.atlarus=Атларисовый абстрактор
 container.metallurgycm.abstractor.black.steel=Абстрактор из чёрной стали
