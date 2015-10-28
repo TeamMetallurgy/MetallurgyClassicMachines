@@ -2,12 +2,16 @@ package com.teammetallurgy.metallurgycm.block;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -34,6 +38,8 @@ public abstract class BlockBaseMachine extends BlockContainer
     protected IIcon topIcons[];
     protected IIcon sideIcons[];
     protected IIcon activeIcons[];
+
+    protected Random random = new Random();
 
     public BlockBaseMachine()
     {
@@ -95,6 +101,53 @@ public abstract class BlockBaseMachine extends BlockContainer
         int meta = world.getBlockMetadata(x, y, z);
         ((TileEntityBaseMachine) tileEntity).setType(meta);
 
+    }
+
+    @Override
+    public void breakBlock(World world, int x, int y, int z, Block block, int meta)
+    {
+        TileEntity tileEntity = world.getTileEntity(x, y, z);
+        if (tileEntity instanceof IInventory)
+        {
+            IInventory inventory = (IInventory) tileEntity;
+
+            for (int slotId = 0; slotId < inventory.getSizeInventory(); slotId++)
+            {
+                ItemStack slotStack = inventory.getStackInSlot(slotId);
+
+                if (slotStack == null)
+                {
+                    continue;
+                }
+
+                double xOffset = random.nextFloat() * 0.8D + 0.1D;
+                double yOffset = random.nextFloat() * 0.8D + 0.1D;
+                double zOffset = random.nextFloat() * 0.8D + 0.1D;
+
+                while (slotStack.stackSize > 0)
+                {
+                    int stackSplit = random.nextInt(21) + 10;
+                    if (stackSplit > slotStack.stackSize)
+                    {
+                        stackSplit = slotStack.stackSize;
+                    }
+
+                    slotStack.stackSize -= stackSplit;
+                    ItemStack spawnedStack = slotStack.copy();
+                    spawnedStack.stackSize = stackSplit;
+                    EntityItem entityItem = new EntityItem(world, x + xOffset, y + yOffset, z + zOffset, spawnedStack);
+
+                    double velocity = 0.05D;
+                    entityItem.motionX = random.nextGaussian() * velocity;
+                    entityItem.motionY = random.nextGaussian() * velocity + 0.2D;
+                    entityItem.motionZ = random.nextGaussian() * velocity;
+
+                    world.spawnEntityInWorld(entityItem);
+                }
+            }
+        }
+
+        super.breakBlock(world, x, y, z, block, meta);
     }
 
     public String getUnlocalizedName(ItemStack stack)
