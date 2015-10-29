@@ -13,21 +13,25 @@ public class ConfigHandler
     public static double[] abstractorSpeedMultipliers = { 0.5, 1.0, 1.3, 1.5, 1.7, 2.0, 2.2, 2.4, 2.6, 2.8, 3.0 };
     public static int[] abstractorProcessTicks = new int[abstractorSpeedMultipliers.length];
     public static double[] abstractorFuelEfficiencyMultipliers = { 3.0, 2.8, 2.6, 2.4, 2.2, 2.0, 1.7, 1.5, 1.3, 1.0, 0.5 };
+    public static boolean abstractorCrafting = true;
 
     public static boolean abstractorGenVerboseLog = false;
     public static boolean abstractorInvaildLog = false;
 
     public static final String[] chestsTypes = { "Brass", "Silver", "Gold", "Electrum", "Platinum" };
+    public static boolean chestCrafting = true;
 
     public static final String[] crusherTypes = { "Stone", "Copper", "Bronze", "Iron", "Steel" };
     public static double[] crusherSpeedMultipliers = { 1.0, 1.5, 2.0, 2.5, 3.0 };
     public static int[] crusherProcessTicks = new int[crusherSpeedMultipliers.length];
     public static double[] crusherFuelEfficiencyMultipliers = { 3.0, 2.5, 2.0, 1.5, 1.0 };
+    public static boolean crusherCrafting = true;
 
     public static final String[] furnaceTypes = { "Copper", "Bronze", "Iron", "Steel" };
     public static double[] furnaceSpeedMultipliers = { 1.5, 2.0, 2.5, 3.0 };
     public static int[] furnaceProcessTicks = new int[furnaceSpeedMultipliers.length];
     public static double[] furnaceFuelEfficiencyMultipliers = { 2.5, 2.0, 1.5, 1.0 };
+    public static boolean furnaceCrafting = true;
 
     public static final String[] smelterTypes = { "Ignatius", "Shadow Iron", "Shadow Steel", "Vyroxeres", "Inolashite", "Kalendrite", "Vulcanite", "Sanguinite" };
     public static double[] smelterSpeedMultipliers = { 0.5, 0.8, 1.0, 1.4, 1.6, 2.0, 2.2, 2.5 };
@@ -35,6 +39,7 @@ public class ConfigHandler
     public static double[] smelterFuelEfficiencyMultipliers = { 2.5, 2.2, 2.0, 1.6, 1.4, 1.0, 0.8, 0.5 };
     public static int[] smelterDrainPerProcess = new int[smelterFuelEfficiencyMultipliers.length];
     public static int[] smelterTankCapacities = { 2000, 4000, 8000, 16000, 32000, 48000, 56000, 64000 };
+    public static boolean smelterCrafting = true;
 
     public static void setConfig(Configuration configuration)
     {
@@ -49,16 +54,22 @@ public class ConfigHandler
         multipleConfigs("abstractor.fuel_efficiency_multipliers", abstractorTypes, abstractorFuelEfficiencyMultipliers, "Fuel Efficiency Multiplier for %s Abstractor", 0.1D, 10.0D);
         ConfigHandler.abstractorGenVerboseLog = config.getBoolean("verbose_log", "abstractor.general", ConfigHandler.abstractorGenVerboseLog, "Verbose log for Abstractor Recipe Generator");
         ConfigHandler.abstractorInvaildLog = config.getBoolean("invaild_log", "abstractor.general", ConfigHandler.abstractorInvaildLog, "Enables invalid warnings for Abstractor Recipe Generator");
+        ConfigHandler.abstractorCrafting = config.getBoolean("crafting", "abstractor.general", ConfigHandler.abstractorCrafting, "Adds crafting recipes for Abstractors");
+
+        ConfigHandler.chestCrafting = config.getBoolean("crafting", "chest.general", ConfigHandler.chestCrafting, "Adds crafting recipes for chests");
 
         multipleConfigs("crusher.speed_multipliers", crusherTypes, crusherSpeedMultipliers, "Speed Multiplier for %s Crusher", 0.1D, 10.0D);
         multipleConfigs("crusher.fuel_efficiency_multipliers", crusherTypes, crusherFuelEfficiencyMultipliers, "Fuel Efficiency Multiplier for %s Crusher", 0.1D, 10.0D);
+        ConfigHandler.crusherCrafting = config.getBoolean("crafting", "crusher.general", ConfigHandler.crusherCrafting, "Adds crafting recipes for Crushers");
 
         multipleConfigs("furnace.speed_multipliers", furnaceTypes, furnaceSpeedMultipliers, "Speed Multiplier for %s Furnance", 0.1D, 10.0D);
         multipleConfigs("furnace.fuel_efficiency_multipliers", furnaceTypes, furnaceFuelEfficiencyMultipliers, "Fuel Efficiency Multiplier for %s Furnance", 0.1D, 10.0D);
+        ConfigHandler.furnaceCrafting = config.getBoolean("crafting", "furnace.general", ConfigHandler.furnaceCrafting, "Adds crafting recipes for Furnaces");
 
         multipleConfigs("smelter.speed_multipliers", smelterTypes, smelterSpeedMultipliers, "Speed Multiplier for %s Smelter", 0.1D, 10.0D);
         multipleConfigs("smelter.fuel_efficiency_multipliers", smelterTypes, smelterFuelEfficiencyMultipliers, "Fuel Efficiency Multiplier for %s Smelter", 0.1D, 10.0D);
         multipleConfigs("smelter.tank_capacities", smelterTypes, smelterTankCapacities, "Tank capacity in mB for %s Smelter", 1, 100000);
+        ConfigHandler.smelterCrafting = config.getBoolean("crafting", "smelter.general", ConfigHandler.smelterCrafting, "Adds crafting recipes for smelters");
 
         if (config.hasChanged())
         {
