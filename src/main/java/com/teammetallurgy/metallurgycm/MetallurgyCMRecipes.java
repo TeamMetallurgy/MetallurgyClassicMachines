@@ -90,7 +90,7 @@ public class MetallurgyCMRecipes
         // Smelter recipes
         for (int i = 0; i < ConfigHandler.smelterTypes.length; i++)
         {
-            String ingotName = "ingot" + ConfigHandler.abstractorTypes[i].replace(" ", "");
+            String ingotName = "ingot" + ConfigHandler.smelterTypes[i].replace(" ", "");
             ItemStack smelterStack = new ItemStack(MetallurgyCMBlocks.smelter, 1, i);
 
             if (i == 0)
@@ -99,7 +99,7 @@ public class MetallurgyCMRecipes
             }
             else
             {
-                ItemStack previousSmelter = new ItemStack(MetallurgyCMBlocks.abstractor, 1, i - 1);
+                ItemStack previousSmelter = new ItemStack(MetallurgyCMBlocks.smelter, 1, i - 1);
                 GameRegistry.addRecipe(new ShapedOreRecipe(smelterStack, "iii", "ipi", "iii", 'i', ingotName, 'p', previousSmelter));
             }
         }
