@@ -10,7 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
 
-import com.teammetallurgy.metallurgycm.handler.ConfigHandler;
 import com.teammetallurgy.metallurgycm.handler.LogHandler;
 
 import cpw.mods.fml.common.registry.GameData;
@@ -49,10 +48,7 @@ public class RecipeGeneratorAbstractor
             {
                 UniqueIdentifier itemToolUid = GameRegistry.findUniqueIdentifierFor((ItemTool) registryItem);
 
-                if (ConfigHandler.abstractorGenVerboseLog)
-                {
-                    LogHandler.trace("Found ItemTool: " + itemToolUid.toString() + " Attemting to get ToolMaterial");
-                }
+                LogHandler.abstractorVerboseLog("Found ItemTool: " + itemToolUid.toString() + " Attemting to get ToolMaterial");
 
                 ToolMaterial toolMaterial = null;
 
@@ -74,11 +70,8 @@ public class RecipeGeneratorAbstractor
 
                 if (toolMaterial != null)
                 {
-                    if (ConfigHandler.abstractorGenVerboseLog)
-                    {
-                        LogHandler.trace("Found toolMaterial for " + itemToolUid.toString());
-                        LogHandler.trace("Material: " + toolMaterial.toString() + " Enchantability: " + toolMaterial.getEnchantability());
-                    }
+                    LogHandler.abstractorVerboseLog("Found toolMaterial for " + itemToolUid.toString());
+                    LogHandler.abstractorVerboseLog("Material: " + toolMaterial.toString() + " Enchantability: " + toolMaterial.getEnchantability());
 
                     if (toolMaterial.getRepairItemStack() != null && toolMaterial.getRepairItemStack().getItem() != null)
                     {
@@ -88,19 +81,13 @@ public class RecipeGeneratorAbstractor
                         }
                         else
                         {
-                            if (ConfigHandler.abstractorInvaildLog)
-                            {
-                                LogHandler.warning("Invaild Enchantability detected, skipping adding recipe for " + toolMaterial.toString());
-                            }
+                            LogHandler.abstractorInvaildLog("Invaild Enchantability detected, skipping adding recipe for " + toolMaterial.toString());
                         }
 
                     }
                     else
                     {
-                        if (ConfigHandler.abstractorInvaildLog)
-                        {
-                            LogHandler.warning("Invaild Item detected, Skipping adding recipe for " + toolMaterial.toString());
-                        }
+                        LogHandler.abstractorInvaildLog("Invaild Item detected, Skipping adding recipe for " + toolMaterial.toString());
                     }
                 }
                 continue;
@@ -110,10 +97,7 @@ public class RecipeGeneratorAbstractor
             {
                 UniqueIdentifier itemSwordUid = GameRegistry.findUniqueIdentifierFor((ItemSword) registryItem);
 
-                if (ConfigHandler.abstractorGenVerboseLog)
-                {
-                    LogHandler.trace("Found ItemSword: " + itemSwordUid.toString() + " Attemting to get ToolMaterial");
-                }
+                LogHandler.abstractorVerboseLog("Found ItemSword: " + itemSwordUid.toString() + " Attemting to get ToolMaterial");
 
                 ToolMaterial toolMaterial = null;
 
@@ -135,11 +119,8 @@ public class RecipeGeneratorAbstractor
 
                 if (toolMaterial != null)
                 {
-                    if (ConfigHandler.abstractorGenVerboseLog)
-                    {
-                        LogHandler.trace("Found toolMaterial for " + itemSwordUid.toString());
-                        LogHandler.trace("Material: " + toolMaterial.toString() + " Enchantability: " + toolMaterial.getEnchantability());
-                    }
+                    LogHandler.abstractorVerboseLog("Found toolMaterial for " + itemSwordUid.toString());
+                    LogHandler.abstractorVerboseLog("Material: " + toolMaterial.toString() + " Enchantability: " + toolMaterial.getEnchantability());
 
                     if (toolMaterial.getRepairItemStack() != null && toolMaterial.getRepairItemStack().getItem() != null)
                     {
@@ -149,19 +130,13 @@ public class RecipeGeneratorAbstractor
                         }
                         else
                         {
-                            if (ConfigHandler.abstractorInvaildLog)
-                            {
-                                LogHandler.warning("Invaild Enchantability detected, skipping adding recipe for " + toolMaterial.toString());
-                            }
+                            LogHandler.abstractorInvaildLog("Invaild Enchantability detected, skipping adding recipe for " + toolMaterial.toString());
                         }
 
                     }
                     else
                     {
-                        if (ConfigHandler.abstractorInvaildLog)
-                        {
-                            LogHandler.warning("Invaild Item detected, Skipping adding recipe for " + toolMaterial.toString());
-                        }
+                        LogHandler.abstractorInvaildLog("Invaild Item detected, Skipping adding recipe for " + toolMaterial.toString());
                     }
                 }
                 continue;
@@ -171,10 +146,7 @@ public class RecipeGeneratorAbstractor
             {
                 UniqueIdentifier itemArmorUid = GameRegistry.findUniqueIdentifierFor((ItemArmor) registryItem);
 
-                if (ConfigHandler.abstractorGenVerboseLog)
-                {
-                    LogHandler.trace("Found ItemArmor: " + itemArmorUid.toString() + " Attemting to get ArmorMaterial");
-                }
+                LogHandler.abstractorVerboseLog("Found ItemArmor: " + itemArmorUid.toString() + " Attemting to get ArmorMaterial");
 
                 ArmorMaterial armorMaterial = null;
 
@@ -196,11 +168,8 @@ public class RecipeGeneratorAbstractor
 
                 if (armorMaterial != null)
                 {
-                    if (ConfigHandler.abstractorGenVerboseLog)
-                    {
-                        LogHandler.trace("Found armor material for " + itemArmorUid.toString());
-                        LogHandler.trace("Material: " + armorMaterial.toString() + " Enchantability: " + armorMaterial.getEnchantability());
-                    }
+                    LogHandler.abstractorVerboseLog("Found armor material for " + itemArmorUid.toString());
+                    LogHandler.abstractorVerboseLog("Material: " + armorMaterial.toString() + " Enchantability: " + armorMaterial.getEnchantability());
 
                     if (armorMaterial.func_151685_b() != null)
                     {
@@ -210,19 +179,13 @@ public class RecipeGeneratorAbstractor
                         }
                         else
                         {
-                            if (ConfigHandler.abstractorInvaildLog)
-                            {
-                                LogHandler.warning("Invaild Enchantability detected, skipping adding recipe for " + armorMaterial.toString());
-                            }
+                            LogHandler.abstractorInvaildLog("Invaild Enchantability detected, skipping adding recipe for " + armorMaterial.toString());
                         }
 
                     }
                     else
                     {
-                        if (ConfigHandler.abstractorInvaildLog)
-                        {
-                            LogHandler.warning("Invaild Item detected, Skipping adding recipe for " + armorMaterial.toString());
-                        }
+                        LogHandler.abstractorInvaildLog("Invaild Item detected, Skipping adding recipe for " + armorMaterial.toString());
                     }
                 }
                 continue;

@@ -25,4 +25,20 @@ public class LogHandler
     {
         log.warn(message);
     }
+
+    public static void abstractorVerboseLog(String message)
+    {
+        if (ConfigHandler.abstractorGenVerboseLog)
+        {
+            log.trace(message);
+        }
+    }
+
+    public static void abstractorInvaildLog(String message)
+    {
+        if (ConfigHandler.abstractorInvaildLog)
+        {
+            log.warn(message);
+        }
+    }
 }
