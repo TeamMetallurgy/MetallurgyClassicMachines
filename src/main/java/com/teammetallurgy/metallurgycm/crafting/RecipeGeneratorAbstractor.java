@@ -68,27 +68,14 @@ public class RecipeGeneratorAbstractor
                     }
                 }
 
-                if (toolMaterial != null)
+                if (testToolMaterial(toolMaterial, itemToolUid.toString()))
                 {
-                    LogHandler.abstractorVerboseLog("Found toolMaterial for " + itemToolUid.toString());
                     LogHandler.abstractorVerboseLog("Material: " + toolMaterial.toString() + " Enchantability: " + toolMaterial.getEnchantability());
-
-                    if (toolMaterial.getRepairItemStack() != null && toolMaterial.getRepairItemStack().getItem() != null)
-                    {
-                        if (toolMaterial.getEnchantability() > 0)
-                        {
-                            addTempRecipe(toolMaterial.getRepairItemStack().copy(), toolMaterial.getEnchantability());
-                        }
-                        else
-                        {
-                            LogHandler.abstractorInvaildLog("Invaild Enchantability detected, skipping adding recipe for " + toolMaterial.toString());
-                        }
-
-                    }
-                    else
-                    {
-                        LogHandler.abstractorInvaildLog("Invaild Item detected, Skipping adding recipe for " + toolMaterial.toString());
-                    }
+                    addTempRecipe(toolMaterial.getRepairItemStack().copy(), toolMaterial.getEnchantability());
+                }
+                else
+                {
+                    LogHandler.abstractorInvaildLog("Skipping adding recipe");
                 }
                 continue;
             }
@@ -117,28 +104,17 @@ public class RecipeGeneratorAbstractor
                     }
                 }
 
-                if (toolMaterial != null)
+                if (testToolMaterial(toolMaterial, itemSwordUid.toString()))
                 {
-                    LogHandler.abstractorVerboseLog("Found toolMaterial for " + itemSwordUid.toString());
                     LogHandler.abstractorVerboseLog("Material: " + toolMaterial.toString() + " Enchantability: " + toolMaterial.getEnchantability());
 
-                    if (toolMaterial.getRepairItemStack() != null && toolMaterial.getRepairItemStack().getItem() != null)
-                    {
-                        if (toolMaterial.getEnchantability() > 0)
-                        {
-                            addTempRecipe(toolMaterial.getRepairItemStack().copy(), toolMaterial.getEnchantability());
-                        }
-                        else
-                        {
-                            LogHandler.abstractorInvaildLog("Invaild Enchantability detected, skipping adding recipe for " + toolMaterial.toString());
-                        }
-
-                    }
-                    else
-                    {
-                        LogHandler.abstractorInvaildLog("Invaild Item detected, Skipping adding recipe for " + toolMaterial.toString());
-                    }
+                    addTempRecipe(toolMaterial.getRepairItemStack().copy(), toolMaterial.getEnchantability());
                 }
+                else
+                {
+                    LogHandler.abstractorInvaildLog("Skipping adding recipe");
+                }
+
                 continue;
             }
 
@@ -166,33 +142,105 @@ public class RecipeGeneratorAbstractor
                     }
                 }
 
-                if (armorMaterial != null)
+                if (testArmorMaterial(armorMaterial, itemArmorUid.toString()))
                 {
-                    LogHandler.abstractorVerboseLog("Found armor material for " + itemArmorUid.toString());
                     LogHandler.abstractorVerboseLog("Material: " + armorMaterial.toString() + " Enchantability: " + armorMaterial.getEnchantability());
 
-                    if (armorMaterial.func_151685_b() != null)
-                    {
-                        if (armorMaterial.getEnchantability() > 0)
-                        {
-                            addTempRecipe(new ItemStack(armorMaterial.func_151685_b()), armorMaterial.getEnchantability());
-                        }
-                        else
-                        {
-                            LogHandler.abstractorInvaildLog("Invaild Enchantability detected, skipping adding recipe for " + armorMaterial.toString());
-                        }
+                    addTempRecipe(new ItemStack(armorMaterial.func_151685_b()), armorMaterial.getEnchantability());
 
-                    }
-                    else
-                    {
-                        LogHandler.abstractorInvaildLog("Invaild Item detected, Skipping adding recipe for " + armorMaterial.toString());
-                    }
+                }
+                else
+                {
+                    LogHandler.abstractorInvaildLog("Skipping adding recipe");
                 }
                 continue;
             }
         }
 
         LogHandler.trace("Found " + tempRecipeMap.size() + " items in ItemRegistry");
+
+    }
+
+    private static boolean testToolMaterial(ToolMaterial toolMaterial, String toolUid)
+    {
+        try
+        {
+            if (toolMaterial == null)
+            {
+                LogHandler.abstractorInvaildLog("ToolMaterial is null");
+                return false;
+            }
+
+            if (toolMaterial.getEnchantability() <= 0)
+            {
+                LogHandler.abstractorInvaildLog("ToolMaterial " + toolMaterial.toString() + " have invaild Enchantability");
+                return false;
+            }
+
+            if (toolMaterial.getRepairItemStack() == null || toolMaterial.getRepairItemStack().getItem() == null)
+            {
+                LogHandler.abstractorInvaildLog("ToolMaterial " + toolMaterial.toString() + " have an invalid Repair Item");
+                return false;
+            }
+
+        }
+        catch (Exception e)
+        {
+            LogHandler.warning("Ran into an issue while testing ToolMaterial for " + toolUid);
+            LogHandler.warning(e.getLocalizedMessage());
+            LogHandler.warning("StackTrace:");
+            LogHandler.warning("------------------------------");
+            for (StackTraceElement element : e.getStackTrace())
+            {
+                LogHandler.warning(element.toString());
+            }
+            return false;
+        }
+
+        LogHandler.abstractorVerboseLog("ToolMaterial " + toolMaterial.toString() + " for " + toolUid + " have passed the test");
+
+        return true;
+    }
+
+    private static boolean testArmorMaterial(ArmorMaterial armorMaterial, String armorlUid)
+    {
+        try
+        {
+            if (armorMaterial == null)
+            {
+                LogHandler.abstractorInvaildLog("ArmorMaterial is null");
+                return false;
+            }
+
+            if (armorMaterial.getEnchantability() <= 0)
+            {
+                LogHandler.abstractorInvaildLog("ArmorMaterial " + armorMaterial.toString() + " have invaild Enchantability");
+                return false;
+            }
+
+            if (armorMaterial.func_151685_b() == null)
+            {
+                LogHandler.abstractorInvaildLog("ArmorMaterial " + armorMaterial.toString() + " have an invalid Repair Item");
+                return false;
+            }
+
+        }
+        catch (Exception e)
+        {
+            LogHandler.warning("Ran into an issue while testing ArmorMaterial for " + armorlUid);
+            LogHandler.warning(e.getLocalizedMessage());
+            LogHandler.warning("StackTrace:");
+            LogHandler.warning("------------------------------");
+            for (StackTraceElement element : e.getStackTrace())
+            {
+                LogHandler.warning(element.toString());
+            }
+            return false;
+        }
+
+        LogHandler.abstractorVerboseLog("ArmorMaterial " + armorMaterial.toString() + " for " + armorlUid + " have passed the test");
+
+        return true;
 
     }
 
