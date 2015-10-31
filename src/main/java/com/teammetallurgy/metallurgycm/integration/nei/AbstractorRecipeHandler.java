@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
 import codechicken.nei.NEIClientUtils;
@@ -16,6 +17,8 @@ import codechicken.nei.recipe.TemplateRecipeHandler;
 
 import com.teammetallurgy.metallurgycm.client.gui.GuiAbstractor;
 import com.teammetallurgy.metallurgycm.crafting.RecipesAbstractor;
+
+import cpw.mods.fml.client.FMLClientHandler;
 
 public class AbstractorRecipeHandler extends TemplateRecipeHandler
 {
@@ -132,6 +135,12 @@ public class AbstractorRecipeHandler extends TemplateRecipeHandler
     {
         drawProgressBar(51, 25, 176, 0, 14, 14, 48, 7);
         drawProgressBar(74, 23, 176, 14, 24, 16, 48, 0);
+
+        // Displaying XP value
+        AbstractingPair abstractingRecipe = (AbstractingPair) arecipes.get(recipe);
+        String xpAmount = abstractingRecipe.result + " XP";
+        FontRenderer fontRendere = FMLClientHandler.instance().getClient().fontRenderer;
+        fontRendere.drawString(xpAmount, 76, 13, 0x404040);
     }
 
     @Override
