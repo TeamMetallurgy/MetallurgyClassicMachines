@@ -58,7 +58,7 @@ public class MetallurgyCM
     @EventHandler
     public void imc(IMCEvent event)
     {
-
+        MetallurgyCMImc.processImc(event);
     }
 
     @EventHandler
