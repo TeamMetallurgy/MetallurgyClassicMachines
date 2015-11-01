@@ -162,7 +162,7 @@ public class MetallurgyCMRecipes
             if (OreDictionary.doesOreNameExist(ingotName))
             {
                 ItemStack result = dustStacks.get(0).copy();
-                RecipesCrusher.addOreDicRecipe(ingotName, result, 0.7f);
+                RecipesCrusher.addOreDicRecipe(ingotName, result, 0.3f);
             }
 
             String oreName = "ore" + resourceName;
@@ -170,7 +170,7 @@ public class MetallurgyCMRecipes
             {
                 ItemStack result = dustStacks.get(0).copy();
                 result.stackSize = 2;
-                RecipesCrusher.addOreDicRecipe(oreName, result, 1.0f);
+                RecipesCrusher.addOreDicRecipe(oreName, result, 0.3f);
             }
 
         }
