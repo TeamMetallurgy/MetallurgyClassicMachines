@@ -70,3 +70,10 @@ tile.metallurgycm.smelter.inolashite.name=Инолашитовая плавил�
 tile.metallurgycm.smelter.kalendrite.name=Календритовая плавильня
 tile.metallurgycm.smelter.vulcanite.name=Вулканитовая плавильня
 tile.metallurgycm.smelter.sanguinite.name=Сангвинитовая плавильня
+
+nei.recipe.metallurgycm.abstractor=Абстрагирование
+nei.recipe.metallurgycm.catalyst=Катализатор абстрагирования
+nei.recipe.metallurgycm.crusher=Дробление
+nei.recipe.metallurgycm.metal.furnace=Металлическая печь
+nei.recipe.metallurgycm.smelter=Плавление лавы
+nei.recipe.metallurgycm.xp=%d опыта
