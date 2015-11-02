@@ -138,7 +138,7 @@ public class AbstractorRecipeHandler extends TemplateRecipeHandler
 
         // Displaying XP value
         AbstractingPair abstractingRecipe = (AbstractingPair) arecipes.get(recipe);
-        String xpAmount = abstractingRecipe.result + " XP";
+        String xpAmount = NEIClientUtils.translate("recipe.metallurgycm.xp", abstractingRecipe.result);
         FontRenderer fontRendere = FMLClientHandler.instance().getClient().fontRenderer;
         fontRendere.drawString(xpAmount, 76, 13, 0x404040);
     }
