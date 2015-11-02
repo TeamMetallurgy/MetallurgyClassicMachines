@@ -6,6 +6,7 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
@@ -17,6 +18,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 
 import com.teammetallurgy.metallurgycm.MetallurgyCM;
+import com.teammetallurgy.metallurgycm.handler.ConfigHandler;
 import com.teammetallurgy.metallurgycm.handler.MetallurgyCMGuiHandler;
 import com.teammetallurgy.metallurgycm.tileentity.TileEntitySmelter;
 
@@ -41,6 +43,26 @@ public class BlockSmelter extends BlockBaseMachine
     public TileEntity createNewTileEntity(World world, int meta)
     {
         return new TileEntitySmelter();
+    }
+
+    @Override
+    public void breakBlock(World world, int x, int y, int z, Block block, int meta)
+    {
+        int lavaAmmount = 0;
+        TileEntity tileEntity = world.getTileEntity(x, y, z);
+        if (tileEntity instanceof TileEntitySmelter)
+        {
+            TileEntitySmelter smelterTileEntity = (TileEntitySmelter) tileEntity;
+            FluidTankInfo[] tanks = smelterTileEntity.getTankInfo(smelterTileEntity.getFacing());
+
+            lavaAmmount = tanks[0].fluid.amount;
+        }
+        super.breakBlock(world, x, y, z, block, meta);
+
+        if (ConfigHandler.smelterDropLava && lavaAmmount > 0)
+        {
+            world.setBlock(x, y, z, Blocks.flowing_lava);
+        }
     }
 
     @Override

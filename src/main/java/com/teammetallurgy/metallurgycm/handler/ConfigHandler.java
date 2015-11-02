@@ -40,6 +40,7 @@ public class ConfigHandler
     public static int[] smelterDrainPerProcess = new int[smelterFuelEfficiencyMultipliers.length];
     public static int[] smelterTankCapacities = { 2000, 4000, 8000, 16000, 32000, 48000, 56000, 64000 };
     public static boolean smelterCrafting = true;
+    public static boolean smelterDropLava = false;
 
     public static void setConfig(Configuration configuration)
     {
@@ -70,6 +71,7 @@ public class ConfigHandler
         multipleConfigs("smelter.fuel_efficiency_multipliers", smelterTypes, smelterFuelEfficiencyMultipliers, "Fuel Efficiency Multiplier for %s Smelter", 0.1D, 10.0D);
         multipleConfigs("smelter.tank_capacities", smelterTypes, smelterTankCapacities, "Tank capacity in mB for %s Smelter", 1, 100000);
         ConfigHandler.smelterCrafting = config.getBoolean("crafting", "smelter.general", ConfigHandler.smelterCrafting, "Adds crafting recipes for smelters");
+        ConfigHandler.smelterDropLava = config.getBoolean("drop_lava", "smelter.general", ConfigHandler.smelterDropLava, "Smelters drop lava on breaking");
 
         if (config.hasChanged())
         {
