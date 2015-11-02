@@ -55,7 +55,10 @@ public class BlockSmelter extends BlockBaseMachine
             TileEntitySmelter smelterTileEntity = (TileEntitySmelter) tileEntity;
             FluidTankInfo[] tanks = smelterTileEntity.getTankInfo(smelterTileEntity.getFacing());
 
-            lavaAmmount = tanks[0].fluid.amount;
+            if (tanks != null && tanks[0] != null && tanks[0].fluid != null)
+            {
+                lavaAmmount = tanks[0].fluid.amount;
+            }
         }
         super.breakBlock(world, x, y, z, block, meta);
 
