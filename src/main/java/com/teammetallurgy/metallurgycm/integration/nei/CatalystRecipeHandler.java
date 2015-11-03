@@ -70,6 +70,13 @@ public class CatalystRecipeHandler extends AbstractorRecipeHandler
     }
 
     @Override
+    public void drawExtras(int recipe)
+    {
+        drawProgressBar(51, 25, 176, 0, 14, 14, 48, 7);
+        drawProgressBar(74, 23, 176, 14, 24, 16, 48, 0);
+    }
+
+    @Override
     public String getOverlayIdentifier()
     {
         return "metallurgycm.catalyst";
