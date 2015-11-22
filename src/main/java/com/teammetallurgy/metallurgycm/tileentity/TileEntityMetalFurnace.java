@@ -39,7 +39,7 @@ public class TileEntityMetalFurnace extends TileEntityStandardMachine
 
                 if (baseBurningTicks > 0)
                 {
-                    burningTicks = maxBurningTicks = (int) Math.round((baseBurningTicks * ConfigHandler.crusherFuelEfficiencyMultipliers[getType()]));
+                    burningTicks = maxBurningTicks = (int) Math.round((baseBurningTicks * ConfigHandler.furnaceFuelEfficiencyMultipliers[getType()]));
 
                     if (burningTicks <= 0)
                     {
