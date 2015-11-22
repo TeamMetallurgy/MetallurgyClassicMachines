@@ -14,7 +14,7 @@ import com.teammetallurgy.metallurgycm.inventory.ContainerMetalChest;
 
 public class TileEntityMetalChest extends TileEntityBaseMachine implements IInventory
 {
-    private ItemStack[] inventory;
+    private ItemStack[] inventory = new ItemStack[0];
     private int currentUsersCount;
     public float lidOpenRatio;
     public float lidPreviousOpenRatio;
